@@ -7,6 +7,21 @@
 var app = require('../app');
 var debug = require('debug')('flood-server:server');
 var http = require('http');
+var mongoose = require('mongoose');
+const mongoosePW = require("../config/mongoDB.json")
+/**
+ * Get port from environment and store in Express.
+ */
+
+let db = mongoose.connection;
+
+db.on('error', console.error);
+db.once('open', function(){
+    console.log("Connected to mongod server");
+});
+
+mongoose.connect('mongodb+srv://modak:'+mongoosePW.mongoDB+'@modak-mqsht.mongodb.net/soptwork?retryWrites=true&w=majority', {useUnifiedTopology: true , useNewUrlParser: true });
+
 
 /**
  * Get port from environment and store in Express.
