@@ -9,7 +9,7 @@ var userSchema = new Schema({
     phone : {type: String, required :true},
     rank:String,
     groupCode:String, // 조직 코드를 삽입
-    profileImage:String,  // 이미지 url ?? // multer aws s3
+    profileImage:String,  // 이미지 url  // multer aws s3
     bookmark:[String]
 })
 module.exports = mongoose.model('user',userSchema)
