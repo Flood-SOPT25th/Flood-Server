@@ -6,9 +6,11 @@ var logger = require('morgan');
 const formidable = require('express-formidable');
 
 var indexRouter = require('./routes/index');
+
 var usersRouter = require('./routes/users');
 var postsRouter = require('./routes/post/index')
 var groupRouter = require('./routes/group/index')
+
 
 var app = express();
 
