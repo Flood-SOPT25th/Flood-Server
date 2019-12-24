@@ -16,5 +16,4 @@ var postSchema = new Schema({
     postDate: {type: Date, default: Date.now()},
 },{ versionKey:'_somethingElse'})
 
-
 module.exports = mongoose.model('post',postSchema)

@@ -28,7 +28,7 @@ router.post('/',upload.array('images'),async function(req, res, next) {
 
     let {
         url,
-        postTitle,
+        // postTitle,
         postContent
     } = req.body
 
@@ -60,6 +60,7 @@ router.post('/',upload.array('images'),async function(req, res, next) {
         if (description) {
             posts.description = description
         }
+        
         posts.writer = "ehdgns1766"
         posts.postTitle = postTitle
         posts.postContent = postContent

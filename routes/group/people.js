@@ -7,6 +7,7 @@ var statusCode = require('../../module/statusCode')
 
 
 // upload 버튼 눌렀을 때
+
 router.post('/', async (req, res, next) => {
 
     const groupCode = "qweqwe"
@@ -24,7 +25,6 @@ router.post('/', async (req, res, next) => {
                 }
             })
         })
-
 })
 
 module.exports = router;
