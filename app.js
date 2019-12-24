@@ -7,7 +7,6 @@ const formidable = require('express-formidable');
 
 var indexRouter = require('./routes/index');
 
-var usersRouter = require('./routes/users');
 var postsRouter = require('./routes/post/index')
 var groupRouter = require('./routes/group/index')
 
@@ -25,7 +24,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use('/post',postsRouter);
 app.use('/group',groupRouter);
 
