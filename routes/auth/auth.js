@@ -3,12 +3,7 @@ var router = express.Router({mergeParams:true});
 const crypto = require('crypto');
 const users= require('../../model/user');
 
-
-router.get('/', (req,res)=>{
-    res.send('회원가입');
-    res.end();
-});
-/* todo sign up  -> dummy data 삽입까지만 몽구스는 나중에!
+/* todo sign up
 - url : /auth/signup
 - method post
 - data
@@ -37,7 +32,7 @@ name:{type: String, required : true},
         message: "회원가입 완료"
 }
 */
-//signup
+
 
 router.post('/signup' ,(req,res)=>{
     /* to do
@@ -47,7 +42,7 @@ router.post('/signup' ,(req,res)=>{
     4. 회원가입 완료
     */
     const {email, password, name, phone, rank, groupCode, checked} = req.body; // 패스워드 해싱해서 오기,  checked 는 약관 동의
-    console.log(req.body);
+    
 
     //1. 파라미터체크
     if(!email || !password || !name || !groupCode){
@@ -75,7 +70,6 @@ router.post('/signup' ,(req,res)=>{
     const salt = name+email;
     const buf= crypto.randomBytes(64);
     const key = crypto.pbkdf2Sync(password, buf.toString('base64'), 112129, 64, 'sha512');
-    console.log('암호화: '+key.toString('base64'));
 
 
     console.log(req.body);

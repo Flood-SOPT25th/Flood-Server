@@ -20,7 +20,7 @@ db.once('open', function(){
     console.log("Connected to mongod server");
 });
 
-mongoose.connect('mongodb+srv://modak:'+mongoosePW.mongoDB+'@modak-mqsht.mongodb.net/soptwork?retryWrites=true&w=majority', {useUnifiedTopology: true , useNewUrlParser: true });
+mongoose.connect('mongodb+srv://modak:'+mongoosePW.mongoDB+'@modak-mqsht.mongodb.net/flood?retryWrites=true&w=majority', {useUnifiedTopology: true , useNewUrlParser: true });
 
 
 /**
