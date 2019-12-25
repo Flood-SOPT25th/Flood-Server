@@ -9,21 +9,6 @@ const formidable = require('express-formidable');
 const multiparty = require('multiparty');
 
 
-// router.use('/', (req,res,next) => {
-//     var form = new multiparty.Form();
-//     form.parse(req, function(err, fields, files) {
-//         if (files) {
-//             upload.array('images')
-//         }else {
-//             upload.none('ima')
-//         }
-//         console.log(files)
-//     });
-//     next()
-// })
-
-
-
 // 그룹의 전체 게시물 조회
 router.get('/', async (req,res,next) => {
     
@@ -47,8 +32,8 @@ router.get('/', async (req,res,next) => {
 
 // 그룹의 해시태그로 조회
 router.get('/hash', async (req,res,next) => {
+    
     const category = req.query.category
-
     const groupCode = "1234" // 그룹 코드
     let result = await post.find({groupCode : groupCode, category : category})
 
