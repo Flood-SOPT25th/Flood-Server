@@ -1,10 +1,10 @@
 var express = require('express');
 var router = express.Router();
-var request = require('request')
-var upload = require('../../module/awsUpload.json')
+var request = require('request');
+var upload = require('../../module/awsUpload')
 var client = require('cheerio-httpcli'); 
 var post = require('../../model/post')
-var statusCode = require('../../module/statusCode.json')
+var statusCode = require('../../module/statusCode')
 const formidable = require('express-formidable');
 const multiparty = require('multiparty')
 
