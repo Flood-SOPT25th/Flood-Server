@@ -20,6 +20,7 @@ module.exports ={
         return result;
 
     },
+    
     verify:(token) =>{
         let decoded;
     try{
@@ -38,6 +39,7 @@ module.exports ={
     }
     return decoded;
     },
+
     refresh:(user) =>{
         const payload = {
             idx:user.idx,

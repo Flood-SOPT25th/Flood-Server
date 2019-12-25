@@ -10,7 +10,11 @@ var userSchema = new Schema({
     rank:String,
     groupCode:String, // 조직 코드를 삽입
     profileImage:String,  // 이미지 url  // multer aws s3
-    bookmark:[String]
-})
+    bookmark: [{
+        categoryName:String,
+        // thumb:[String],
+        post : [{type: mongoose.Schema.Types.ObjectId, ref: 'post'}],
+    }]
+}, { minimize: false })
 module.exports = mongoose.model('user',userSchema)
 //이름 이메일 조합 jwt 토큰 생성

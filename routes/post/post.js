@@ -6,21 +6,45 @@ var client = require('cheerio-httpcli');
 var post = require('../../model/post')
 var statusCode = require('../../module/statusCode')
 const formidable = require('express-formidable');
-const multiparty = require('multiparty')
+const multiparty = require('multiparty');
 
 
-// router.use('/', (req,res,next) => {
-//     var form = new multiparty.Form();
-//     form.parse(req, function(err, fields, files) {
-//         if (files) {
-//             upload.array('images')
-//         }else {
-//             upload.none('ima')
-//         }
-//         console.log(files)
-//     });
-//     next()
-// })
+// 그룹의 전체 게시물 조회
+router.get('/', async (req,res,next) => {
+    
+    const groupCode = "1234" // 그룹 코드
+    let result = await post.find({groupCode:groupCode})
+    const pid = result.slice()
+
+    result.sort((a, b) => { 
+        return a.score < b.score ? 1 : a.score > b.score ? -1 : 0;  
+    });
+
+    res.status(200).json({
+        message: "전체 피드 조회",
+        data: {
+            topArr : result.slice(0,3),
+            pidArr : pid
+        }
+    })
+    console.log(pid)
+})
+
+// 그룹의 해시태그로 조회
+router.get('/hash', async (req,res,next) => {
+    
+    const category = req.query.category
+    const groupCode = "1234" // 그룹 코드
+    let result = await post.find({groupCode : groupCode, category : category})
+
+    res.status(200).json({
+        message: "전체 피드 조회",
+        data: {
+            pidArr : result
+        }
+    })
+
+})
 
 router.post('/',upload.array('images'),async function(req, res, next) {
     
@@ -28,7 +52,7 @@ router.post('/',upload.array('images'),async function(req, res, next) {
 
     let {
         url,
-        // postTitle,
+        category,
         postContent
     } = req.body
 
@@ -43,7 +67,7 @@ router.post('/',upload.array('images'),async function(req, res, next) {
                 data: {}
             })
             return; 
-        } 
+        }
         
         const image = $("meta[property='og:image']").attr('content')
         const title = $("meta[property='og:title']").attr('content')
@@ -61,8 +85,9 @@ router.post('/',upload.array('images'),async function(req, res, next) {
             posts.description = description
         }
 
+        posts.groupCode = "dqweqwedqw"
+        posts.category = category
         posts.writer = "ehdgns1766"
-        posts.postTitle = postTitle
         posts.postContent = postContent
         posts.url = url
 

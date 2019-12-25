@@ -9,10 +9,16 @@ var statusCode = require('../../module/statusCode')
 // 조회수
 router.get('/', async (req, res, next) => {
     const post_id = req.query.post_id
-    let result = await post.findOne({_id : post_id})
-    result.see.push("gyg") // 유저 아이디 넣는곳
-    let fin = await result.save()
-    res.status(statusCode.OK).json({message : fin})
+    let postResult = await post.findOne({_id : post_id})
+    postResult.see += 1
+    postResult.score = (postResult.bookmark * 0.7 + postResult.see * 0.3)
+    await postResult.save()
+    res.status(statusCode.OK).json({
+        message : "조회 성공",
+        data : {
+
+        }
+    })
 })
 
 module.exports = router;
