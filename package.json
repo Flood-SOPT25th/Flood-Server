@@ -6,7 +6,7 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
-    "aws-sdk": "^2.595.0",
+    "aws-sdk": "^2.596.0",
     "cheerio-httpcli": "^0.7.4",
     "cookie-parser": "~1.4.4",
     "crypto": "^1.0.1",
@@ -17,13 +17,12 @@
     "http-errors": "~1.6.3",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.8.2",
-    "morgan": "~1.9.1",
-    "rand-token": "^0.4.0",
+    "morgan": "^1.9.1",
     "multer": "^1.4.2",
     "multer-s3": "^2.9.0",
     "multiparty": "^4.2.1",
     "path": "^0.12.7",
+    "rand-token": "^0.4.0",
     "request": "^2.88.0"
-
   }
 }

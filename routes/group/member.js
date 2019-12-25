@@ -1,17 +1,19 @@
 var express = require('express');
 var router = express.Router();
 var post = require('../../model/post')
-// var group = require('../../model/')
+var user = require('../../model/user')
+var group = require('../../model/group')
 
-var statusCode = require('../../module/statusCode.json')
+var statusCode = require('../../module/statusCode')
 
 
 // upload 버튼 눌렀을 때
-
-router.post('/', async (req, res, next) => {
-
-    const groupCode = "qweqwe"
-
+// 그룹 전체 맴버 조회
+router.get('/', async (req, res, next) => {
+    
+    let userEmail = "ehdgns1766@naver.com"
+    let result = await user.findOne({email:userEmail}).select({groupCode:1})
+    const groupCode = result.groupCode
     let category = await group.findOne({groupCode:groupCode}).select({category:1}) // 카테고리 array
 
     user.find({groupCode: groupCode}).select({name: 1, profileImage:1})
