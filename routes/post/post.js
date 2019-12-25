@@ -10,24 +10,39 @@ const multiparty = require('multiparty');
 
 
 // 그룹의 전체 게시물 조회
-router.get('/', async (req,res,next) => {
-    
+
+router.get('/top', async (req,res,next) => {
     const groupCode = "1234" // 그룹 코드
     let result = await post.find({groupCode:groupCode})
-    const pid = result.slice()
 
     result.sort((a, b) => { 
         return a.score < b.score ? 1 : a.score > b.score ? -1 : 0;  
     });
-
+    
     res.status(200).json({
         message: "전체 피드 조회",
         data: {
             topArr : result.slice(0,3),
-            pidArr : pid
         }
     })
-    console.log(pid)
+})
+
+router.get('/', async (req,res,next) => {
+    
+    var pageOptions = {
+        page: req.query.page || 0,
+        limit: req.query.limit || 10
+    }
+
+    const groupCode = "1234" //  그룹 코드
+    let result = await post.find({groupCode:groupCode}).skip(pageOptions.page).limit(pageOptions.limit)
+
+    res.status(200).json({
+        message: "전체 피드 조회",
+        data: {
+            pidArr : result
+        }
+    })
 })
 
 // 그룹의 해시태그로 조회
