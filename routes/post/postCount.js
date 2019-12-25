@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var request = require('request')
-var upload = require('../../module/awsUpload.json')
+var upload = require('../../module/awsUpload')
 var post = require('../../model/post')
-var statusCode = require('../../module/statusCode.json')
+var statusCode = require('../../module/statusCode')
 
 
 // 조회수

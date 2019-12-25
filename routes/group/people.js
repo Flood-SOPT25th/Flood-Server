@@ -3,7 +3,7 @@ var router = express.Router();
 var post = require('../../model/post')
 // var group = require('../../model/')
 
-var statusCode = require('../../module/statusCode.json')
+var statusCode = require('../../module/statusCode')
 
 
 // upload 버튼 눌렀을 때
