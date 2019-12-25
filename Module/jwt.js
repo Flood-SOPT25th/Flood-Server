@@ -1,5 +1,5 @@
-const randToken = require('rand-token');
-const jwt = require('jsonwebtoken');
+const randToken = require('./node_modules/rand-token');
+const jwt = require('./node_modules/jsonwebtoken');
 const {secretOrPrivateKey} = require('../config/secretKey');
 const options = {
     algorithm:"HS256",
@@ -20,6 +20,7 @@ module.exports ={
         return result;
 
     },
+    
     verify:(token) =>{
         let decoded;
     try{
@@ -38,6 +39,7 @@ module.exports ={
     }
     return decoded;
     },
+
     refresh:(user) =>{
         const payload = {
             idx:user.idx,
