@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
+var randomCode = require('../../../../module/randomCode');
 const groups = require('../../../../model/group');
 var upload = require('../../../../module/awsUpload');
-const randomCode = require('../../../../module/randomCode');
 
 router.post('/',upload.single('image'),(req,res)=>{
     const{name, phone, department, category} = req.body;
@@ -20,7 +20,6 @@ router.post('/',upload.single('image'),(req,res)=>{
         console.log(errData);
         return;
     }
-
     //2 코드 
     groupCode = randomCode.randCode();
 
