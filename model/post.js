@@ -16,6 +16,7 @@ var postSchema = new Schema({
     writer : String,
     groupCode : String,
     postDate: {type: Date, default: Date.now()},
+    comments : [{ type: mongoose.Schema.Types.ObjectId, ref: 'comment' }],
 },{ versionKey:'_somethingElse'})
 
 module.exports = mongoose.model('post',postSchema)
