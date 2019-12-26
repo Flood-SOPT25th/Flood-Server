@@ -2,7 +2,8 @@ var express = require('express');
 var router = express.Router();
 const groups = require('../../../../model/group');
 var upload = require('../../../../module/awsUpload');
-const randomCode = require('../../../../module/randomCode.js');
+const randomCode = require('flood-server/module/randomCode');
+
 router.post('/',upload.single('image'),(req,res)=>{
     const{name, phone, department, category} = req.body;
     const groupImage = req.file;
