@@ -6,7 +6,6 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
-    "app-module-path": "^2.2.0",
     "aws-sdk": "^2.596.0",
     "cheerio-httpcli": "^0.7.4",
     "cookie-parser": "~1.4.4",
