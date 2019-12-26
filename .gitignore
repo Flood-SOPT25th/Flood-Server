@@ -3,3 +3,7 @@ config/mongoDB.json
 config/awsConfig.json
 config/secretKey.js
 
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml

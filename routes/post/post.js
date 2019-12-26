@@ -20,7 +20,7 @@ router.get('/top', async (req,res,next) => {
     });
 
     res.status(200).json({
-        message: "top3 피드 조회",
+        message: "top3 피드 조회 성공",
         data: {
             topArr : result.slice(0,3),
         }
@@ -39,7 +39,7 @@ router.get('/', async (req,res,next) => {
     let result = await post.find({groupCode:groupCode}).skip(pageOptions.page).limit(pageOptions.limit)
 
     res.status(200).json({
-        message: "전체 피드 조회",
+        message: "전체 피드 조회 성공",
         data: {
             pidArr : result
         }

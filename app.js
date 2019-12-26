@@ -3,8 +3,6 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-const formidable = require('express-formidable');
-const bodyParser = require('body-parser');
 
 var indexRouter = require('./routes/index');
 
