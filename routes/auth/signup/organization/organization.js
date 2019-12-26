@@ -20,7 +20,6 @@ router.post('/',upload.single('image'),(req,res)=>{
         console.log(errData);
         return;
     }
-
     //2 코드 
     groupCode = randomCode.randCode();
 
