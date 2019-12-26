@@ -9,24 +9,25 @@ const formidable = require('express-formidable');
 const multiparty = require('multiparty');
 
 
-// 그룹의 전체 게시물 조회
-
+// 그룹의 top3
 router.get('/top', async (req,res,next) => {
+
     const groupCode = "1234" // 그룹 코드
     let result = await post.find({groupCode:groupCode})
 
     result.sort((a, b) => { 
         return a.score < b.score ? 1 : a.score > b.score ? -1 : 0;  
     });
-    
+
     res.status(200).json({
-        message: "전체 피드 조회",
+        message: "top3 피드 조회",
         data: {
             topArr : result.slice(0,3),
         }
     })
 })
 
+// 그룹의 전체 게시물 조회
 router.get('/', async (req,res,next) => {
     
     var pageOptions = {
