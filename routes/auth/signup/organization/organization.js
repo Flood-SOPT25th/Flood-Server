@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const randomCode = require("../../../../module/randomCode");
+var randomCode = require('../../../../module/randomCode.js');
 const groups = require('../../../../model/group');
 var upload = require('../../../../module/awsUpload');
 
