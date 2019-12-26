@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 const groups = require('../../../../model/group');
 var upload = require('../../../../module/awsUpload');
-const randomCode = require(__dirname+'/../../../../module/randomCode');
+const randomCode = require('../../../../module/randomCode');
 
 router.post('/',upload.single('image'),(req,res)=>{
     const{name, phone, department, category} = req.body;
