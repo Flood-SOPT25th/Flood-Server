@@ -1,17 +1,16 @@
-const randToken = require('./node_modules/rand-token');
-const jwt = require('./node_modules/jsonwebtoken');
+const randToken = require('rand-token');
+const jwt = require('jsonwebtoken');
 const {secretOrPrivateKey} = require('../config/secretKey');
 const options = {
     algorithm:"HS256",
-    expiresIn:"7d",
-    issuer:"Flood"
+    expiresIn:"30d",
+    issuer:"FloodServer"
 };
 module.exports ={
     sign:(user) =>{
         const payload = {
             email:user.email,
-            name:user.name,
-            group:user.group
+            name:user.name
         };
         const result = {
             token:jwt.sign(payload, secretOrPrivateKey, options),
@@ -42,8 +41,7 @@ module.exports ={
 
     refresh:(user) =>{
         const payload = {
-            idx:user.idx,
-            grade:user.grade,
+            email:user.email,
             name:user.name
         };
         return jwt.sign(payload,secretOrPrivateKey, options);
