@@ -2,8 +2,11 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
  
 var commentSchema = new Schema({
-    contents: String,
-    author: String,
+    // upComment : { type: mongoose.Schema.Types.ObjectId, ref: 'comment' },
+    content: String,
+    subComment : [Object],
+    writer: String,
+    profileImage : String,
     comment_date: {type: Date, default: Date.now()}
 })
  

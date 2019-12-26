@@ -3,13 +3,11 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-const formidable = require('express-formidable');
-
 var indexRouter = require('./routes/index');
 
 var postsRouter = require('./routes/post/index')
 var groupRouter = require('./routes/group/index')
-
+var mypageRouter = require('./routes/mypage/index')
 
 var app = express();
 
@@ -26,6 +24,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/post',postsRouter);
 app.use('/group',groupRouter);
+app.use('/mypage',mypageRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

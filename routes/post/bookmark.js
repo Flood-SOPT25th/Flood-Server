@@ -78,16 +78,33 @@ router.get('/list', async (req, res, next) => {
     }
 })
 
+// {
+// 	add:["it"],
+// 	update[[_id,변경후],[_id,변경후]],
+// 	delete:[_id,_id]
+// }
 
 // 카테고리 생성 개발해야함
 router.post('/', async (req, res, next) => {
     const categoryName = "ui/ux"
-
+    const categoryObejct = req.body.categoryObejct
     // const categoryArr = req.body.categoryArr
     const userEmail = "ehdgns1766@naver.com" // decode info
 
     let result = await user.findOne({email : userEmail})
     
+    if (categoryObejct.add.length !== 0) {
+
+    }
+
+    if (categoryObejct.update.length !== 0) {
+
+    }
+
+    if (categoryObejct.delete.length !== 0) {
+        
+    }
+
     const count = result.bookmark.findIndex(i => i.categoryName === categoryName); 
 
     if (count == -1) {

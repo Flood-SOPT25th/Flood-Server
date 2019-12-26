@@ -5,7 +5,6 @@ var upload = require('../../module/awsUpload')
 var post = require('../../model/post')
 var statusCode = require('../../module/statusCode')
 
-
 // 조회수
 router.get('/', async (req, res, next) => {
     const post_id = req.query.post_id
