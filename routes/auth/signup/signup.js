@@ -2,10 +2,11 @@ var express = require('express');
 var router = express.Router();
 const crypto = require('crypto');
 const users = require('../../../model/user');
+const groups = require('../../../model/group');
 var upload = require('../../../module/awsUpload');
 var encryption = require('../../../module/encryption');
 
-router.post('/',upload.single('image'),(req,res)=>{
+router.post('/',upload.single('image'),async (req,res)=>{
     const {email, password, name, phone, rank, groupCode, checked} = req.body; //checked 는 약관 동의
     const profileImage = req.file;
 
@@ -35,9 +36,21 @@ router.post('/',upload.single('image'),(req,res)=>{
     //4.비밀번호 암호화
     const salt = encryption.salt();
     const key = encryption.makeCrypto(password,salt);
-
     
-    //그룹코드 유효 조사.
+    try{
+        const result = await groups.findOne({groupCode:groupCode});
+        if(!result){
+            res.status(404).json({
+                message:"유효하지 않는 그룹 코드입니다."
+            })
+        return;
+        }
+    } catch(err){
+        res.status(500).json({
+            message:"그룹 코드 확인 실패."
+        })
+        return;
+    }
 
     //5. 회원 가입 완료
     var userModel = new users();
@@ -62,7 +75,9 @@ router.post('/',upload.single('image'),(req,res)=>{
     .catch((err)=>{
         res.status(500).json({
             message:"회원가입 실패",
-            err: err
+            err:{
+                err:err
+            }
         })
         console.log(err);
     })
