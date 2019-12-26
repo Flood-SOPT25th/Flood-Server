@@ -4,7 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const formidable = require('express-formidable');
-
+require('app-module-path').addPath(__dirname);
 var indexRouter = require('./routes/index');
 
 var postsRouter = require('./routes/post/index')
