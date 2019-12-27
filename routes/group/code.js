@@ -11,13 +11,22 @@ var statusCode = require('../../module/statusCode')
 
 router.get('/',authUtils.LoggedIn , async (req, res, next) => {
     const userEmail = req.userEmail 
-    let result = await user.findOne({email:userEmail}).select({groupCode:1})
-    res.status(200).json({
-        message:"그룹 코드 조회 성공",
-        data : {
-            groupCode : result.groupCode
-        }
-    })
+    try {
+        let result = await user.findOne({email:userEmail}).select({groupCode:1})
+        res.status(200).json({
+            message:"그룹 코드 조회 성공",
+            data : {
+                groupCode : result.groupCode
+            }
+        })
+        return
+    } catch {
+        res.status(500).json({
+            message:"서버 에러"
+        })
+        return
+    }
+    
 })
 
 module.exports = router;

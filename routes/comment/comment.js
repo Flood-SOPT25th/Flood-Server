@@ -23,8 +23,6 @@ router.post('/', authUtils.LoggedIn, async (req, res, next) => {
     let result = await user.findOne({email:userEmail}).select({name : 1, profileImage : 1})
     const {name, profileImage} = result
 
-    
-
     if (!comment_id) {
         let comments = new comment()
         comments.content = commentContent
@@ -36,7 +34,12 @@ router.post('/', authUtils.LoggedIn, async (req, res, next) => {
         let postResult = await post.findOne({_id : post_id })
         postResult.comments.push(fin_comment._id)
         postResult.comments_count += 1
-        let fin_post = await postResult.save().then(t => t.populate('comments').execPopulate())
+        let fin_post = await postResult.save().then(t => t.populate('comments').execPopulate()).catch((err) => {
+            res.status(500).json({
+                message:"서버 에러"
+            })
+            return
+        })
         res.status(200).json({
             message:"댓글 달기 성공",
             data : {
@@ -53,7 +56,12 @@ router.post('/', authUtils.LoggedIn, async (req, res, next) => {
 
         commentResult.subComment.push(comments)
         commentResult.save()
-        let postResult = await post.findOne({_id : post_id }).populate('comments')
+        let postResult = await post.findOne({_id : post_id }).populate('comments').catch((err) => {
+            res.status(500).json({
+                message:"서버 에러"
+            })
+            return
+        })
         res.status(200).json({
             message:"대 댓글 달기 성공",
             data : {

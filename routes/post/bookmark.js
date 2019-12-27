@@ -51,7 +51,14 @@ router.get('/', authUtils.LoggedIn, async (req, res, next) => {
 router.get('/detail', authUtils.LoggedIn, async (req, res, next) => {
 
     const category = req.query.category
-    console.log(category)
+
+    if (!category) {
+        res.status(400).json({
+            message : "카테고리 정보가 없습니다."
+        })
+        return
+    }
+
     const userEmail = req.userEmail // decode info
 
     let result = await user.findOne({email : userEmail}).populate('bookmark.post').select({bookmark:1})
@@ -88,46 +95,78 @@ router.get('/detail', authUtils.LoggedIn, async (req, res, next) => {
 // 카테고리 생성 수정 삭제 # 완료
 router.post('/', authUtils.LoggedIn, async (req, res, next) => {
     const categoryObejct = req.body.categoryObejct
+    if (!categoryObejct) {
+        res.status(400).json({
+            message: "cagory 정보가 업습니다."
+        })
+        return
+    }
     const userEmail = req.userEmail // decode info
-
-    let result = await user.findOne({email : userEmail})
-    
-    if (categoryObejct.add.length !== 0) {
-        categoryObejct.add.forEach((n) => {
-            const count = result.bookmark.findIndex(i => i.categoryName == n); 
-            if (count == -1) {
-                let wrap = {}
-                wrap.categoryName = n
-                wrap.post = []
-                result.bookmark.unshift(wrap)
+    let result_message = ""
+    try {
+        let result = await user.findOne({email : userEmail})
+        let message_count
+        if (categoryObejct.add.length !== 0) {
+            message_count = 0
+            categoryObejct.add.forEach((n) => {
+                const count = result.bookmark.findIndex(i => i.categoryName == n); 
+                if (count == -1) {
+                    let wrap = {}
+                    wrap.categoryName = n
+                    wrap.post = []
+                    result.bookmark.unshift(wrap)
+                    message_count +=1
+                }
+            })
+            if (message_count > 0){
+                result_message += "수정"
             }
-        })
-    }
+        }
 
-    if (categoryObejct.update.length !== 0) {
-        categoryObejct.update.forEach((n) => {
-            const count = result.bookmark.findIndex(i => i._id == n[0]);
-            console.log(count)
-            if (count !== -1){
-                result.bookmark[count].categoryName = n[1]
-            } 
-        })
-    }
+        if (categoryObejct.update.length !== 0) {
+            message_count = 0
+            categoryObejct.update.forEach((n) => {
+                const count = result.bookmark.findIndex(i => i._id == n[0]);
+                if (count !== -1){
+                    result.bookmark[count].categoryName = n[1]
+                    message_count +=1
+                }
+            })
+            if (message_count > 0){
+                result_message += " 수정"
+            }
+        }
 
-    if (categoryObejct.delete.length !== 0) {
-        categoryObejct.delete.forEach((n) => {
-            const count = result.bookmark.findIndex(i => i._id == n);
-            if (count !== -1){
-                console.log(count)
-                result.bookmark.splice(count,1)
-            } 
+        if (categoryObejct.delete.length !== 0) {
+            message_count = 0
+            categoryObejct.delete.forEach((n) => {
+                const count = result.bookmark.findIndex(i => i._id == n);
+                if (count !== -1){
+                    console.log(count)
+                    result.bookmark.splice(count,1)
+                    message_count +=1
+                }
+            })
+            if (message_count > 0){
+                result_message += " 삭제"
+            }
+        }
+    
+        const rere = await result.save()
+
+        res.status(200).json({
+            message: `카테고리 ${result_message} 완료`,
+            data: rere
+        })
+    } catch {
+        res.status(500).json({
+            message:"서버 에러"
         })
     }
-   
-    const rere = await result.save()
-    res.json({
-        data: rere
-    })
+    
+    
+
+    
 })
 
 // 북마크 추가 # 완료
@@ -135,70 +174,84 @@ router.post('/add', authUtils.LoggedIn, async (req, res, next) => {
     const userEmail = req.userEmail
     const {post_id,category_id} = req.body
 
-    let postResult = await post.findOne({_id : post_id})
-    postResult.bookmark += 1
-    let arr = postResult.bookmark_list
-    arr.push(userEmail)
-    postResult.bookmark_list = Array.from(new Set(arr))
-    postResult.score = (postResult.bookmark * 0.7 + postResult.bookmark * 0.3) 
-    await postResult.save()  // 북마크 수 증가
-
-    let result = await user.findOne({email : userEmail})
-    const count = result.bookmark.findIndex(i => i._id == category_id); 
-    if (count !== -1) {
-        result.bookmark[count].post.unshift(post_id)
-        await result.save()
-        res.status(200).json({
-            message: "북마크 추가완료",
-            data : {
-
-            }
+    if (!post_id || !category_id) {
+        res.status(400).json({
+            message : "body가 비어 있습니다."
         })
     }
+
+    try {
+        let postResult = await post.findOne({_id : post_id})
+        postResult.bookmark += 1
+        let arr = postResult.bookmark_list
+        arr.push(userEmail)
+        postResult.bookmark_list = Array.from(new Set(arr))
+        postResult.score = (postResult.bookmark * 0.7 + postResult.bookmark * 0.3) 
+        await postResult.save()  // 북마크 수 증가
+
+        let result = await user.findOne({email : userEmail})
+        const count = result.bookmark.findIndex(i => i._id == category_id); 
+        if (count !== -1) {
+            result.bookmark[count].post.unshift(post_id)
+            await result.save()
+            res.status(200).json({
+                message: "북마크 추가완료",
+                data : {
+
+                }
+            })
+        }
+    } catch {
+        res.status(500).json({
+            message : "서버 에러"
+        })
+    }
+    
 })
 
 // 북마크 취소 #완료
 router.post('/cancel', authUtils.LoggedIn, async (req, res, next) => {
     const {post_id} = req.body
-    const userEmail = req.userEmail // decode info
 
-    let postResult = await post.findOne({_id:post_id})
-    postResult.bookmark -= 1
-    let arr = postResult.bookmark_list
-    arr.splice(arr.indexOf(userEmail),1)
-    postResult.bookmark_list =arr
-    postResult.score = (postResult.bookmark * 0.7 + postResult.bookmark * 0.3) 
-    await postResult.save()  // 북마크 수 감소
-    
-    let result = await user.findOne({email : userEmail})
-
-    for (let n of result.bookmark) {
-        const count = n.post.findIndex(i => i == post_id); 
-        if(count !== -1){
-            n.post.splice(count,1)
-            break
-        }   
+    if (post_id) {
+        res.status(400).json({
+            message : "post_id가 비어있습니다."
+        })
     }
-    
-    await result.save()
-    res.status(200).json({
-        message: "북마크 취소",
-        data: {
 
+    try {
+        const userEmail = req.userEmail // decode info
+
+        let postResult = await post.findOne({_id:post_id})
+        postResult.bookmark -= 1
+        let arr = postResult.bookmark_list
+        arr.splice(arr.indexOf(userEmail),1)
+        postResult.bookmark_list =arr
+        postResult.score = (postResult.bookmark * 0.7 + postResult.bookmark * 0.3) 
+        await postResult.save()  // 북마크 수 감소
+        
+        let result = await user.findOne({email : userEmail})
+
+        for (let n of result.bookmark) {
+            const count = n.post.findIndex(i => i == post_id); 
+            if(count !== -1){
+                n.post.splice(count,1)
+                break
+            }   
         }
-    })
+        
+        await result.save()
+        res.status(200).json({
+            message: "북마크 취소",
+            data: {
 
-    // result.bookmark.forEach((n) => {
-    //     const count = n.post.findIndex(i => i == post_id); 
-    //     if(count !== -1){
-    //         n.post.splice(count,1)
-    //         break
-    //     }else{
-    //         console.log("못찾았다")
-    //     }
-    // })
-    
-
+            }
+        })
+    } catch {
+        res.status(500).json({
+            message : "서버 에러"
+        })
+    }
 })
 
 
