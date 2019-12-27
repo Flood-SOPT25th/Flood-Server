@@ -29,7 +29,7 @@ router.post('/',upload.single('image'),(req,res)=>{
     groupModel.department = department
     groupModel.groupCode = groupCode;
     groupModel.groupImage = groupImage.location;
-
+    groupModel.category.push("flood") // 첫 번째 허수 추가
     category.forEach((n) => {
         groupModel.category.push(n)
     })

@@ -3,13 +3,14 @@ var router = express.Router();
 var request = require('request');
 var upload = require('../../module/awsUpload')
 var client = require('cheerio-httpcli'); 
+var user = require('../../model/user')
 var post = require('../../model/post')
 var statusCode = require('../../module/statusCode')
 const formidable = require('express-formidable');
 const multiparty = require('multiparty');
 var authUtils = require('../../module/authUtils')
 
-// 그룹의 top3
+// 그룹의 top3 # 완료
 router.get('/top', authUtils.LoggedIn ,async (req,res,next) => {
 
     const userEmail = req.userEmail 
@@ -29,7 +30,26 @@ router.get('/top', authUtils.LoggedIn ,async (req,res,next) => {
     })
 })
 
-// 그룹의 전체 게시물 조회
+// 해당 게시물 조회 및 조회수 증가 # 완료
+router.get('/detail/:idx', authUtils.LoggedIn, async (req,res,next) => {
+
+    const idx = req.params.idx
+    // const userEmail = req.userEmail 
+    // let codeResult = await user.findOne({email:userEmail}).select({groupCode: 1})
+    let result = await post.findOne({_id : idx})
+    result.see += 1
+    result.score = (postResult.bookmark * 0.7 + postResult.see * 0.3)
+    let fin_result = await result.save().then(t => t.populate('comments').execPopulate())
+
+    res.status(200).json({
+        message: "해당 포스트 조회 성공",
+        data: {
+            pidArr : fin_result
+        }
+    })
+})
+
+// 그룹의 전체 게시물 조회 # 완료
 router.get('/', authUtils.LoggedIn, async (req,res,next) => {
     
     var pageOptions = {
@@ -40,9 +60,7 @@ router.get('/', authUtils.LoggedIn, async (req,res,next) => {
     const userEmail = req.userEmail 
     let codeResult = await user.findOne({email:userEmail}).select({groupCode: 1})
 
-
-    const groupCode = "1234" //  그룹 코드
-    let result = await post.find({groupCode : codeResult.groupCode}).skip(pageOptions.page).limit(pageOptions.limit)
+    let result = await post.find({groupCode : codeResult.groupCode}).select({comments:0}).skip(pageOptions.page).limit(pageOptions.limit)
 
     res.status(200).json({
         message: "전체 피드 조회 성공",
@@ -52,16 +70,21 @@ router.get('/', authUtils.LoggedIn, async (req,res,next) => {
     })
 })
 
-// 그룹의 해시태그로 조회
+// 그룹의 해시태그로 조회 #완료
 router.get('/hash', authUtils.LoggedIn, async (req,res,next) => {
     
     const category = req.query.category
+    
+    var pageOptions = {
+        page: req.query.page || 0,
+        limit: req.query.limit || 10
+    }
 
     const userEmail = req.userEmail 
     let codeResult = await user.findOne({email:userEmail}).select({groupCode: 1})
 
  // 그룹 코드
-    let result = await post.find({groupCode : codeResult.groupCode, category : category})
+    let result = await post.find({groupCode : codeResult.groupCode, category : category}).skip(pageOptions.page).limit(pageOptions.limit)
 
     res.status(200).json({
         message: "전체 피드 조회",
@@ -72,6 +95,7 @@ router.get('/hash', authUtils.LoggedIn, async (req,res,next) => {
 
 })
 
+// 게시물 업로드 # 완료
 router.post('/', authUtils.LoggedIn, upload.array('images'),async function(req, res, next) {
     
     var param = {}
@@ -83,7 +107,7 @@ router.post('/', authUtils.LoggedIn, upload.array('images'),async function(req, 
     } = req.body
 
     const userEmail = req.userEmail 
-    let codeResult = await user.findOne({email:userEmail}).select({groupCode: 1, name: 1})
+    let codeResult = await user.findOne({email:userEmail}).select({groupCode: 1, name: 1, profileImage: 1})
 
     const postImages = req.files
 
@@ -118,6 +142,7 @@ router.post('/', authUtils.LoggedIn, upload.array('images'),async function(req, 
         posts.category = category
         posts.writer = codeResult.name
         posts.postContent = postContent
+        posts.profileImage = codeResult.profileImage
         posts.url = url
 
         postImages.forEach((n) => {
@@ -131,5 +156,7 @@ router.post('/', authUtils.LoggedIn, upload.array('images'),async function(req, 
     });
 
 });
+
+
 
 module.exports = router;

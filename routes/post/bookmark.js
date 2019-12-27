@@ -8,7 +8,7 @@ var group = require('../../model/group')
 var user = require('../../model/user')
 var authUtils = require('../../module/authUtils')
 
-// 북마크 조회 
+// 북마크 조회 # 완료
 router.get('/', authUtils.LoggedIn, async (req, res, next) => {
 
     const userEmail = req.userEmail // decode info
@@ -47,12 +47,12 @@ router.get('/', authUtils.LoggedIn, async (req, res, next) => {
 })
 
 
-// 해당 북마크 조회
-router.get('/list', async (req, res, next) => {
+// 해당 북마크 조회 # 완료
+router.get('/detail', authUtils.LoggedIn, async (req, res, next) => {
 
     const category = req.query.category
     console.log(category)
-    const userEmail = "ehdgns1766@naver.com" // decode info
+    const userEmail = req.userEmail // decode info
 
     let result = await user.findOne({email : userEmail}).populate('bookmark.post').select({bookmark:1})
     if (category == "all") {
@@ -85,57 +85,55 @@ router.get('/list', async (req, res, next) => {
 // 	delete:[_id,_id]
 // }
 
-// 카테고리 생성 개발해야함
-router.post('/', async (req, res, next) => {
-    const categoryName = "ui/ux"
+// 카테고리 생성 수정 삭제 # 완료
+router.post('/', authUtils.LoggedIn, async (req, res, next) => {
     const categoryObejct = req.body.categoryObejct
-    // const categoryArr = req.body.categoryArr
-    const userEmail = "ehdgns1766@naver.com" // decode info
+    const userEmail = req.userEmail // decode info
 
     let result = await user.findOne({email : userEmail})
     
     if (categoryObejct.add.length !== 0) {
-
+        categoryObejct.add.forEach((n) => {
+            const count = result.bookmark.findIndex(i => i.categoryName == n); 
+            if (count == -1) {
+                let wrap = {}
+                wrap.categoryName = n
+                wrap.post = []
+                result.bookmark.unshift(wrap)
+            }
+        })
     }
 
     if (categoryObejct.update.length !== 0) {
-
+        categoryObejct.update.forEach((n) => {
+            const count = result.bookmark.findIndex(i => i._id == n[0]);
+            console.log(count)
+            if (count !== -1){
+                result.bookmark[count].categoryName = n[1]
+            } 
+        })
     }
 
     if (categoryObejct.delete.length !== 0) {
-        
-    }
-
-    const count = result.bookmark.findIndex(i => i.categoryName === categoryName); 
-
-    if (count == -1) {
-        let wrap = {}
-        wrap.categoryName = categoryName
-        wrap.post = []
-        result.bookmark.unshift(wrap)
-        await result.save()
-        res.status(200).json({
-            message:"카테고리 생성",
-            data:{
-
-            }
+        categoryObejct.delete.forEach((n) => {
+            const count = result.bookmark.findIndex(i => i._id == n);
+            if (count !== -1){
+                console.log(count)
+                result.bookmark.splice(count,1)
+            } 
         })
-        return
-    } else{
-        res.status(409).json({
-            message:"카테고리 이름 중복",
-            data:{
-
-            }
-        })
-        return
     }
+   
+    const rere = await result.save()
+    res.json({
+        data: rere
+    })
 })
 
 // 북마크 추가
 
-router.post('/add', async (req, res, next) => {
-    const userEmail = "ehdgns1766@naver.com"
+router.post('/add', authUtils.LoggedIn, async (req, res, next) => {
+    const userEmail = req.userEmail
     const {post_id,category_id} = req.body
 
     let postResult = await post.findOne({_id : post_id})
@@ -158,9 +156,9 @@ router.post('/add', async (req, res, next) => {
 })
 
 // 북마크 취소
-router.post('/cancle', async (req, res, next) => {
+router.post('/cancel', authUtils.LoggedIn, async (req, res, next) => {
     const {post_id} = req.body
-    const userEmail = "ehdgns1766@naver.com" // decode info
+    const userEmail = req.userEmail // decode info
 
     let postResult = await post.findOne({_id:post_id})
     postResult.bookmark -= 1
@@ -197,44 +195,6 @@ router.post('/cancle', async (req, res, next) => {
     
 
 })
-
-
-
-// router.post('/add', async (req,res,next) => {
-
-//     const userEmail = "ehdgns1766@naver.com" // decode info
-
-//     const {post_id,image,category_id} = req.body
-
-//     let postResult = await post.findOne({_id:post_id})
-//     postResult.bookmark += 1
-//     await post.save()  // 북마크 수 증가
-
-//     let result = await user.findOne({email : userEmail})
-//     let postWrap = {}
-
-//     result.category.forEach((n) => {
-//         if (n.categoryName === bookmarkCategory) {
-//             n.thumb.unshift(image)
-//             if (n.thumb.length >= 5) {
-//                 n.thumb.length = 4
-//             }
-//         }
-//     })
-
-//     postWrap.post = post_id
-//     postWrap.category = bookmarkCategory
-//     result.bookmark.unshift(postWrap)
-//     result.save()
-//     .then((re) => {
-//         res.status(200).json({
-//             message: `${bookmarkCategory}에 저장 완료`,
-//             data:{
-//                 post:re
-//             }
-//         })
-//     })
-// })
 
 
 module.exports = router;

@@ -34,6 +34,7 @@ router.post('/', authUtils.LoggedIn, async (req, res, next) => {
 
         let postResult = await post.findOne({_id : post_id })
         postResult.comments.push(fin_comment._id)
+        postResult.comments_count += 1
         let fin_post = await postResult.save().then(t => t.populate('comments').execPopulate())
         res.status(200).json({
             message:"댓글 달기 성공",
