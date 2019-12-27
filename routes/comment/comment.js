@@ -9,7 +9,7 @@ var authUtils = require('../../module/authUtils')
 var statusCode = require('../../module/statusCode')
 
 
-// 댓글 생성
+// 댓글 생성 # 완료
 
 router.post('/', authUtils.LoggedIn, async (req, res, next) => {
     
@@ -23,6 +23,7 @@ router.post('/', authUtils.LoggedIn, async (req, res, next) => {
     let result = await user.findOne({email:userEmail}).select({name : 1, profileImage : 1})
     const {name, profileImage} = result
 
+    
 
     if (!comment_id) {
         let comments = new comment()
