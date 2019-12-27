@@ -26,7 +26,7 @@ router.post('/',async (req,res)=>{
         var result = await user.findOne({email:email});
         if(!result){
             res.status(403).json({
-                message:"이미 존재하는 아이디입니다."
+                message:"존재하지 않는 계정 입니다."
             })
             return;
         }
@@ -39,11 +39,8 @@ router.post('/',async (req,res)=>{
     }
 
     //3.비밀번호 체크
-    /* to do 
-        이메일의 salt와 입력한 패스워드  encryption 후 비교
-    */
     try{
-        const userData = await user.findOne({email:email});
+        const userData = await (await user.findOne({email:email}));
         const dbPw = (encryption.makeCrypto(password, userData.salt)).toString('base64');        
         if(dbPw == userData.password){
             const result = jwt.sign(userData);
@@ -58,15 +55,15 @@ router.post('/',async (req,res)=>{
         if(dbPw != password){
             console.log('비밀번호가 다릅니다.');
             res.status(403).json({
-                message:"비밀번호가 다릅니다.!",
+                message:"비밀번호가 다릅니다.",
             })
             return;
         }
     }catch(err){
         console.log(err);
         res.status(500).json({
-            message:"로그인 실패.",
-            err:err
+            message:"server error",
+            data:err
         })
         return;
     }
