@@ -17,15 +17,26 @@ router.get('/top', authUtils.LoggedIn ,async (req,res,next) => {
     let codeResult = await user.findOne({email:userEmail}).select({groupCode: 1})
 
     let result = await post.find({groupCode:codeResult.groupCode})
-
+    
     result.sort((a, b) => { 
         return a.score < b.score ? 1 : a.score > b.score ? -1 : 0;  
     });
 
+    let fin_result = result.slice(0,3)
+
+    fin_result.forEach((n) => {
+        let count = n.bookmark_list.findIndex(i => i == userEmail);
+        if(count !== -1) {
+            n.bookmarked = true
+        }else {
+            n.bookmarked = false  
+        }
+    })
+
     res.status(200).json({
         message: "top3 피드 조회 성공",
         data: {
-            topArr : result.slice(0,3),
+            topArr : fin_result
         }
     })
 })
@@ -62,6 +73,15 @@ router.get('/', authUtils.LoggedIn, async (req,res,next) => {
 
     let result = await post.find({groupCode : codeResult.groupCode}).select({comments:0}).skip(pageOptions.page).limit(pageOptions.limit)
 
+    result.forEach((n) => {
+        let count = n.bookmark_list.findIndex(i => i == userEmail);
+        if(count !== -1) {
+            n.bookmarked = true
+        }else {
+            n.bookmarked = false  
+        }
+    })
+
     res.status(200).json({
         message: "전체 피드 조회 성공",
         data: {
@@ -85,6 +105,15 @@ router.get('/hash', authUtils.LoggedIn, async (req,res,next) => {
 
  // 그룹 코드
     let result = await post.find({groupCode : codeResult.groupCode, category : category}).skip(pageOptions.page).limit(pageOptions.limit)
+
+    result.forEach((n) => {
+        let count = n.bookmark_list.findIndex(i => i == userEmail);
+        if(count !== -1) {
+            n.bookmarked = true
+        }else {
+            n.bookmarked = false  
+        }
+    })
 
     res.status(200).json({
         message: "전체 피드 조회",

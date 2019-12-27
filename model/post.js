@@ -15,6 +15,8 @@ var postSchema = new Schema({
     category : String,
     writer : String,
     profileImage : String,
+    bookmark_list : [String],
+    bookmarked : Boolean,
     groupCode : String,
     postDate: {type: Date, default: Date.now()},
     comments : [{ type: mongoose.Schema.Types.ObjectId, ref: 'comment' }],

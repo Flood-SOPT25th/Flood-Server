@@ -130,14 +130,16 @@ router.post('/', authUtils.LoggedIn, async (req, res, next) => {
     })
 })
 
-// 북마크 추가
-
+// 북마크 추가 # 완료
 router.post('/add', authUtils.LoggedIn, async (req, res, next) => {
     const userEmail = req.userEmail
     const {post_id,category_id} = req.body
 
     let postResult = await post.findOne({_id : post_id})
     postResult.bookmark += 1
+    let arr = postResult.bookmark_list
+    arr.push(userEmail)
+    postResult.bookmark_list = Array.from(new Set(arr))
     postResult.score = (postResult.bookmark * 0.7 + postResult.bookmark * 0.3) 
     await postResult.save()  // 북마크 수 증가
 
@@ -155,13 +157,16 @@ router.post('/add', authUtils.LoggedIn, async (req, res, next) => {
     }
 })
 
-// 북마크 취소
+// 북마크 취소 #완료
 router.post('/cancel', authUtils.LoggedIn, async (req, res, next) => {
     const {post_id} = req.body
     const userEmail = req.userEmail // decode info
 
     let postResult = await post.findOne({_id:post_id})
     postResult.bookmark -= 1
+    let arr = postResult.bookmark_list
+    arr.splice(arr.indexOf(userEmail),1)
+    postResult.bookmark_list =arr
     postResult.score = (postResult.bookmark * 0.7 + postResult.bookmark * 0.3) 
     await postResult.save()  // 북마크 수 감소
     
