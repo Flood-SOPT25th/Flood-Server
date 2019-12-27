@@ -6,12 +6,13 @@ var post = require('../../model/post')
 var statusCode = require('../../module/statusCode')
 var group = require('../../model/group')
 var user = require('../../model/user')
+var authUtils = require('../../module/authUtils')
 
 // 북마크 조회 
-router.get('/', async (req, res, next) => {
+router.get('/', authUtils.LoggedIn, async (req, res, next) => {
 
-    const userEmail = "ehdgns1766@naver.com" // decode info
-
+    const userEmail = req.userEmail // decode info
+    
     let result = await user.findOne({email : userEmail}).populate('bookmark.post').select({bookmark:1})
     let arr = []
     let allCount = 0 
