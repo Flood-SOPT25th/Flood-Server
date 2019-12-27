@@ -5,11 +5,17 @@ var encryption = require('../../module/encryption');
 var upload = require('../../module/awsUpload');
 var groups = require("../../model/group");
 var users = require("../../model/user");
-
+const jwt = require('../../module/jwt');
 
 
 router.get('/',  function(req, res, next) {
-    const userEmail = 'uploadTest@gmail.com4' //로그인 정보
+    //const userEmail = 'uploadTest@gmail.com4' //로그인 정보
+    
+    var token = req.get('accessToken');
+    if(typeof token !== 'undefined'){
+        var decoded = jwt.verify(token);
+    const userEmail = decoded.email
+
     
     users.findOne({email: userEmail}, {_id: 0, name: 1, rank: 1, groupCode: 1, profileImage: 1, bookmark: 1})
         .then(async (user) => {
@@ -37,12 +43,23 @@ router.get('/',  function(req, res, next) {
             res.status(500).json({
                 message: err
             })
-        })     
+        })   
+    }else{
+        res.status(403).json({
+            message: "사용자 정보 없음"
+        });
+    }  
 });
 
 //프로필 정보 업데이트
 router.put('/', async function(req, res, next){
-    const userEmail = 'c_yh0327@naver.com6' //로그인 정보
+    
+    var token = req.get('accessToken');
+    if(typeof token !== 'undefined'){
+        var decoded = jwt.verify(token);
+    const userEmail = decoded.email
+
+    //const userEmail = 'c_yh0327@naver.com6' //로그인 정보
     const {name, rank,  phone, profileImage} = req.body
 
     if(!name || !rank || !phone ){
@@ -79,12 +96,23 @@ router.put('/', async function(req, res, next){
             message: err
         })
     }
-
+    }else{
+        res.status(403).json({
+            message: "사용자 정보 없음"
+        });
+    }
 })
 
+//비밀번호 업데이트
 router.put('/password', async function(req, res, next){
-    const userEmail = 'test' //로그인 정보
-    const {originalPW, newPW,  confirmPW} = req.body
+    
+    var token = req.get('accessToken');
+    if(typeof token !== 'undefined'){
+        var decoded = jwt.verify(token);
+        const userEmail = decoded.email
+
+        //const userEmail = 'test' //로그인 정보
+        //const {originalPW, newPW,  confirmPW} = req.body
 
     try{
         //console.log(req.body)
@@ -145,13 +173,24 @@ router.put('/password', async function(req, res, next){
         })
         return;
     }
+}else{
+    res.status(403).json({
+        message: "사용자 정보 없음"
+    });
+}
 })
 
 
 //프로필 사진 업데이트
 router.put('/image', upload.single('image'), function(req, res) {
+    
+    var token = req.get('accessToken');
+    if(typeof token !== 'undefined'){
+        var decoded = jwt.verify(token);
+        const userEmail = decoded.email
+
     const profileImage = req.file
-    const userEmail = 'uploadTest3@gmail.com' //로그인 정보
+    //const userEmail = 'uploadTest3@gmail.com' //로그인 정보
 
     users.findOne({email: userEmail}, {profileImage: profileImage.location})
         .then((user) =>{
@@ -178,6 +217,11 @@ router.put('/image', upload.single('image'), function(req, res) {
             })
             console.log(err);
             }) 
+        }else{
+            res.status(403).json({
+                message: "사용자 정보 없음"
+            });
+        }
         })
 
 
