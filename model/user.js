@@ -14,7 +14,8 @@ var userSchema = new Schema({
         categoryName:String,
         // thumb:[String],
         post : [{type: mongoose.Schema.Types.ObjectId, ref: 'post'}],
-    }]
+    }],
+    question:{type:String, required: true},
+    answer: {type: String, required: true}
 }, { minimize: false })
 module.exports = mongoose.model('user',userSchema)
-//이름 이메일 조합 jwt 토큰 생성
