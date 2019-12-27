@@ -7,7 +7,7 @@ var authUtils = require('../../module/authUtils')
 var statusCode = require('../../module/statusCode')
 
 
-// 그룹 코드 조회
+// 그룹 코드 조회 #완료 
 
 router.get('/',authUtils.LoggedIn , async (req, res, next) => {
     const userEmail = req.userEmail 
