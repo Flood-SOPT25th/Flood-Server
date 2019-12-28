@@ -10,55 +10,53 @@ const jwt = require('../../module/jwt');
 //프로필 설정 화면
 router.get('/', authUtils.LoggedIn, async function (req, res, next) {
 
+    try{
     const userEmail = req.userEmail
+    var user = await users.findOne({
+        email: userEmail
+    }, {
+        _id: 0,
+        name: 1,
+        rank: 1,
+        email: 1,
+        phone: 1,
+        groupCode: 1,
+        profileImage: 1
+    })
 
-    users.findOne({
-            email: userEmail
-        }, {
-            _id: 0,
-            name: 1,
-            rank: 1,
-            email: 1,
-            phone: 1,
-            groupCode: 1,
-            profileImage: 1
-        })
-        .then(async (user) => {
+    if (!user) return res.status(403).json({
+        message: "존재하지 않는 사용자 입니다."
+    })
 
-            if (!user) return res.status(403).json({
-                message: "존재하지 않는 사용자 입니다."
-            })
-            const result = await groups.findOne({
-                groupCode: user['groupCode']
-            }, {
-                _id: 0,
-                name: 1
-            })
-            let fin = {
-                group: result,
-                user: user
-            }
-            return fin
-        })
-        .then((fin) => {
+    const result = await groups.findOne({
+        groupCode: user['groupCode']
+    }, {
+        _id: 0,
+        name: 1
+    })
+    let fin = {
+        group: result,
+        user: user
+    }
 
-            res.status(200).json({
-                message: "사용자 정보 읽기 성공",
-                data: {
-                    user: fin.user,
-                    group: fin.group
-                }
-            })
-            console.log("사용자 정보 읽기 성공");
-            return;
-        })
-        .catch((err) => {
-            res.status(500).json({
-                message: "server error"
-            })
-            return;
-        })
-});
+    res.status(200).json({
+        message: "사용자 정보 읽기 성공",
+        data: {
+            user: fin.user,
+            group: fin.group
+        }
+    })
+    console.log("사용자 정보 읽기 성공");
+    return;
+    
+}catch(err){
+    res.status(500).json({
+        message: "server error"
+    })
+    return;
+}
+})
+
 
 //프로필 정보 업데이트
 router.put('/', authUtils.LoggedIn, async function (req, res, next) {
