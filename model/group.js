@@ -10,6 +10,7 @@ var groupSchema = new Schema({
     groupCode:{
         type:String, 
         unique:true
-    }
+    },
+    adminEmail:String
 })
 module.exports = mongoose.model('group',groupSchema)
