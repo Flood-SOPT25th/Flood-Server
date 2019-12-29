@@ -19,4 +19,5 @@ var userSchema = new Schema({
     answer: {type: String, required: true},
     admin: Boolean
 }, { minimize: false })
+
 module.exports = mongoose.model('user',userSchema)

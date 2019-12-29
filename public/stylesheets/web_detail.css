@@ -1,0 +1,61 @@
+.post-wrap {
+    border: 1px solid black;
+    cursor: pointer;
+    display: flex;
+    margin: 12px 12px 12px 12px;
+}
+
+.post-wrap .thumb {
+    line-height:200px;
+    border: 1px solid black;
+    width: 200px;
+    height: 200px;
+}
+
+
+.group-image {
+    background-image: url('/images/thumb.jpg');
+    height: 400px;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.group-content {
+    text-align: center;
+}
+
+.group-post {
+    min-height: 500px;
+}
+
+.group-post .nav-bar ul{
+    display: flex;
+    border: 1px solid black;
+}
+
+.group-post .nav-bar ul li {
+    display: block;
+    border: 1px solid black;
+    width: min-content;
+    padding: 10px 22px 10px 22px;
+    margin: 0 5px 0 5px;
+    border-radius: 5px;
+    background-color: rgba(54, 162, 235, 0.2);
+
+    cursor: pointer;
+}
+
+.group-post .nav-bar ul li:first-child {
+    background-color: blue;
+    color: white;
+}
+
+.group-post .nav-bar ul li:hover {
+    opacity: 0.7;
+}
+
+.chart-bar {
+    margin: 30px 0 30px 0;
+}

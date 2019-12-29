@@ -52,18 +52,20 @@ router.get('/top', authUtils.LoggedIn ,async (req,res,next) => {
 router.get('/detail/:idx', authUtils.LoggedIn, async (req,res,next) => {
 
     const idx = req.params.idx
+
     if (!idx) {
         res.status(400).json({
             message : "idx가 비어있습니다."
         })
         return
     }
+
     // const userEmail = req.userEmail 
     // let codeResult = await user.findOne({email:userEmail}).select({groupCode: 1})
     try {
         let result = await post.findOne({_id : idx})
         result.see += 1
-        result.score = (postResult.bookmark * 0.7 + postResult.see * 0.3)
+        result.score = (result.bookmark * 0.7 + result.see * 0.3)
         let fin_result = await result.save().then(t => t.populate('comments').execPopulate()).catch((err) => {
             res.status(500).json({
                 message:"DB서버 에러",
