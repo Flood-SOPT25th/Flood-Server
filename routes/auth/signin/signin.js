@@ -40,7 +40,7 @@ router.post('/',async (req,res)=>{
 
     //3.비밀번호 체크
     try{
-        const userData = await (await user.findOne({email:email}));
+        const userData = await user.findOne({email:email});
         const dbPw = (encryption.makeCrypto(password, userData.salt)).toString('base64');        
         if(dbPw == userData.password){
             const result = jwt.sign(userData);
