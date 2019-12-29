@@ -1,0 +1,12 @@
+.group-wrap {
+    border: 1px solid black;
+    cursor: pointer;
+    display: flex;
+}
+
+.group-wrap .thumb {
+    line-height:200px;
+    border: 1px solid black;
+    width: 200px;
+    height: 200px;
+}
