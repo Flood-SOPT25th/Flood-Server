@@ -95,7 +95,7 @@
 
 ## Architecture
 
-![architecture]()
+![architecture](https://flood-master.s3.ap-northeast-2.amazonaws.com/Untitled+Diagram+(1).png)
 
 
 ## DB ERD
