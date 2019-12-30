@@ -21,7 +21,8 @@ router.get('/', authUtils.LoggedIn, async function (req, res, next) {
         email: 1,
         phone: 1,
         groupCode: 1,
-        profileImage: 1
+        profileImage: 1,
+        admin: 1
     })
 
     if (!user) return res.status(403).json({
@@ -43,7 +44,7 @@ router.get('/', authUtils.LoggedIn, async function (req, res, next) {
         message: "사용자 정보 읽기 성공",
         data: {
             user: fin.user,
-            group: fin.group
+            group: fin.group,
         }
     })
     console.log("사용자 정보 읽기 성공");
