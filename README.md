@@ -19,6 +19,7 @@
 
 ## Team Role
 
+
 #### 이동훈 
 
 - 게시물, 북마크, 댓글 관련 DB 설계및 구축
@@ -35,9 +36,20 @@
 
 
 
-## Depenedncy
+## Package
 
-사용 모듈은 다음과 같습니다.
+사용 패키지(모듈)은 다음과 같습니다.
+
+- **cheerio-httpcli** : 뉴스 기사 크롤링 및 파싱 도구
+- **crypto** : 패스워드 암호화 및 인증 
+- **express** : 웹,서버 개발 프레임워크
+- **express-formidable** : form-data 파싱 도구
+- **jsonwebtoken** : JWT(Json Web Token) 생성 및 인증 
+- **multer** : 파일 업로드 도구
+- **multer-s3** : AWS S3 파일 업로드 도구
+- **rand-token** : 랜덤 토큰 생성 도구
+- **uuid** : unique id 생성 도구
+
 
 ```json
 "dependencies": {
@@ -60,7 +72,6 @@
     "nodemon": "^2.0.2",
     "path": "^0.12.7",
     "rand-token": "^0.4.0",
-    "request": "^2.88.0",
     "uuid": "^3.3.3"
   }
 ```
