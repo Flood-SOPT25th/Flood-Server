@@ -25,7 +25,7 @@ router.post('/',async (req,res)=>{
     try{
         var result = await user.findOne({email:email});
         if(!result){
-            res.status(403).json({
+            res.status(200).json({
                 message:"존재하지 않는 계정 입니다."
             })
             return;
@@ -54,8 +54,8 @@ router.post('/',async (req,res)=>{
 
         if(dbPw != password){
             console.log('비밀번호가 다릅니다.');
-            res.status(403).json({
-                message:"비밀번호가 다릅니다.",
+            res.status(200).json({
+                message:"비밀번호가 다릅니다."
             })
             return;
         }
