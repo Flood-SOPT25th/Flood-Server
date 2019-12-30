@@ -17,7 +17,6 @@ module.exports ={
             refreshToken:randToken.uid(256)
         };
         return result;
-
     },
     
     verify:(token) =>{

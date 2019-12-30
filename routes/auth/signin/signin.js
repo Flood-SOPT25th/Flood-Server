@@ -44,7 +44,6 @@ router.post('/',async (req,res)=>{
         const dbPw = (encryption.makeCrypto(password, userData.salt)).toString('base64');        
         if(dbPw == userData.password){
             const result = jwt.sign(userData);
-            console.log('로그인 완료');
             res.status(200).json({
                 message:"로그인 완료",
                 data:result
@@ -53,7 +52,6 @@ router.post('/',async (req,res)=>{
         }
 
         if(dbPw != password){
-            console.log('비밀번호가 다릅니다.');
             res.status(200).json({
                 message:"비밀번호가 다릅니다."
             })
