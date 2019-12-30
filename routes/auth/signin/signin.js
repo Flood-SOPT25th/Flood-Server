@@ -1,9 +1,10 @@
 var express = require('express');
 var router = express.Router();
 const user = require('../../../model/user');
+const groups = require('../../../model/group');
 const encryption = require('../../../module/encryption');
 const jwt = require('../../../module/jwt');
-
+const authUtils = require('../../../module/authUtils');
 router.post('/',async (req,res)=>{
 
     const{email, password} = req.body;
@@ -64,6 +65,46 @@ router.post('/',async (req,res)=>{
             data:err
         })
         return;
+    }
+})
+
+router.post('/organization', authUtils.LoggedIn, async (req,res)=>{
+
+    const userEmail = req.userEmail;
+    const {groupCode} = req.body;
+    
+    //1. 코드 번호 확인 #확인
+    try{
+        const result = await groups.findOne({groupCode:groupCode},{_id:0,groupCode:1});
+        if(!result.groupCode){
+            res.status(403).json({
+                message:"유효하지 않는 그룹 코드입니다."
+            })
+        return;
+        }
+    } catch(err){
+        res.status(500).json({
+            message:"group code server error"
+        })
+        return;
+    }
+
+    //2. 업데이트
+    try{
+        const result = await user.findOneAndUpdate({email:userEmail}, {$set:{groupCode:groupCode}},{new:true});
+        if(result){
+            res.status(200).json({
+                message:"그룹 가입 성공."
+            })
+            return;
+        }
+    }catch(err){
+        if(err){
+            res.status(500).json({
+                message:"server error"
+            })
+            return;
+        }
     }
 })
 
