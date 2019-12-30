@@ -60,8 +60,7 @@ router.get('/detail/:idx', authUtils.LoggedIn, async (req,res,next) => {
         return
     }
 
-    // const userEmail = req.userEmail 
-    // let codeResult = await user.findOne({email:userEmail}).select({groupCode: 1})
+    const userEmail = req.userEmail 
     try {
         let result = await post.findOne({_id : idx})
         result.see += 1
@@ -71,6 +70,14 @@ router.get('/detail/:idx', authUtils.LoggedIn, async (req,res,next) => {
                 message:"DB서버 에러",
             })
         })
+
+        const count = fin_result.bookmark_list.findIndex(i => i == userEmail);
+
+        if (count !== -1) {
+            fin_result.bookmarked = true
+        } else {
+            fin_result.bookmarked = false
+        }
 
         res.status(200).json({
             message: "해당 포스트 조회 성공",
@@ -179,7 +186,7 @@ router.post('/', authUtils.LoggedIn, upload.array('images'),async function(req, 
     const userEmail = req.userEmail 
 
     try {
-        let codeResult = await user.findOne({email:userEmail}).select({groupCode: 1, name: 1, profileImage: 1})
+        let codeResult = await user.findOne({email:userEmail}).select({groupCode: 1, name: 1, profileImage: 1, email:1})
 
         const postImages = req.files
     
@@ -212,6 +219,7 @@ router.post('/', authUtils.LoggedIn, upload.array('images'),async function(req, 
             posts.groupCode = codeResult.groupCode
             posts.category = category
             posts.writer = codeResult.name
+            posts.writer_email = codeResult.email
             posts.postContent = postContent
             posts.profileImage = codeResult.profileImage
             posts.url = url
