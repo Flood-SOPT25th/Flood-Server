@@ -105,8 +105,7 @@ router.get('/', authUtils.LoggedIn, async (req,res,next) => {
     try {
         let codeResult = await user.findOne({email:userEmail}).select({groupCode: 1})
 
-        let result = await post.find({groupCode : codeResult.groupCode}).select({comments:0}).skip(pageOptions.page).limit(pageOptions.limit)
-    
+        let result = await post.find({groupCode : codeResult.groupCode}).select({comments:0}).skip(Number(pageOptions.page)).limit(Number(pageOptions.limit))
         result.forEach((n) => {
             let count = n.bookmark_list.findIndex(i => i == userEmail);
             if(count !== -1) {
@@ -139,14 +138,15 @@ router.get('/hash', authUtils.LoggedIn, async (req,res,next) => {
         page: req.query.page || 0,
         limit: req.query.limit || 10
     }
-
+    console.log(pageOptions)
     const userEmail = req.userEmail 
 
     try {
         let codeResult = await user.findOne({email:userEmail}).select({groupCode: 1})
 
     // 그룹 코드
-        let result = await post.find({groupCode : codeResult.groupCode, category : category}).skip(pageOptions.page).limit(pageOptions.limit)
+        let result = await post.find({groupCode : codeResult.groupCode, category : category}).skip(Number(pageOptions.page)).limit(Number(pageOptions.limit))
+        console.log("re")
 
         result.forEach((n) => {
             let count = n.bookmark_list.findIndex(i => i == userEmail);
@@ -189,40 +189,64 @@ router.post('/', authUtils.LoggedIn, upload.array('images'),async function(req, 
         let codeResult = await user.findOne({email:userEmail}).select({groupCode: 1, name: 1, profileImage: 1, email:1})
 
         const postImages = req.files
-    
-        client.fetch(url, param,function(err, $, re){ 
-            var posts = new post()
-            
-            if (err){  
-                res.status(500).json({
-                    message: "크롤링 서버 에러",
+        var posts = new post()
+        if (url.length !== 0){
+            client.fetch(url, param,function(err, $, re){ 
+                if (err){  
+                    res.status(500).json({
+                        message: "크롤링 서버 에러",
+                    })
+                    return; 
+                }
+                
+                const image = $("meta[property='og:image']").attr('content')
+                const title = $("meta[property='og:title']").attr('content')
+                const description = $("meta[property='og:description']").attr('content')
+        
+                if (image) {
+                    posts.image = image
+                } else {
+                    posts.image = ''
+                }
+        
+                if (title) {
+                    posts.title = title
+                } else {
+                    posts.title = ''
+                }
+        
+                if (description) {
+                    posts.description = description
+                } else {
+                    posts.description = ''
+                }
+        
+                posts.groupCode = codeResult.groupCode
+                posts.category = category
+                posts.writer = codeResult.name
+                posts.writer_email = codeResult.email
+                posts.postContent = postContent
+                posts.profileImage = codeResult.profileImage
+                posts.url = url
+        
+                postImages.forEach((n) => {
+                    posts.postImages.push(n.location)
                 })
-                return; 
-            }
-            
-            const image = $("meta[property='og:image']").attr('content')
-            const title = $("meta[property='og:title']").attr('content')
-            const description = $("meta[property='og:description']").attr('content')
-    
-            if (image) {
-                posts.image = image
-            } 
-    
-            if (title) {
-                posts.title = title
-            }
-    
-            if (description) {
-                posts.description = description
-            }
-    
+                
+                posts.save()
+                .then((result) => {
+                    res.status(200).json({
+                        message: "게시물 업로드 완료",
+                    })
+                }) 
+            });
+        }else {
             posts.groupCode = codeResult.groupCode
             posts.category = category
             posts.writer = codeResult.name
             posts.writer_email = codeResult.email
             posts.postContent = postContent
             posts.profileImage = codeResult.profileImage
-            posts.url = url
     
             postImages.forEach((n) => {
                 posts.postImages.push(n.location)
@@ -234,7 +258,8 @@ router.post('/', authUtils.LoggedIn, upload.array('images'),async function(req, 
                     message: "게시물 업로드 완료",
                 })
             }) 
-        });
+        }
+        
     } catch {
         res.status(500).json({
             message: "서버 에러"
