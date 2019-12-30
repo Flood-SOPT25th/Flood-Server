@@ -17,7 +17,7 @@ router.get('/', authUtils.LoggedIn, async (req, res, next) => {
         }).select({_id: 0, groupCode: 1, admin: 1})
 
         if (result.admin == false) {
-            res.status(400).json({
+            res.status(401).json({
                 message: "admin계정이 아닙니다.",
             })
             return
