@@ -14,6 +14,7 @@ var postSchema = new Schema({
     comments_count : {type:Number, default: 0},
     category : String,
     writer : String,
+    writer_email : String,
     profileImage : String,
     bookmark_list : [String],
     bookmarked : Boolean,
