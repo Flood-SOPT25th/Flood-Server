@@ -3,5 +3,4 @@ var router = express.Router();
 
 router.use('/', require('./organization'));
 
-
 module.exports = router;
