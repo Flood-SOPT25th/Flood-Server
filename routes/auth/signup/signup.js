@@ -30,7 +30,7 @@ router.post('/',upload.single('image'),async (req,res)=>{
             })
             return;
         }
-    }catch(err){
+    }catch (err) { 
         if(err){
             res.status(500).json({
                 message:"email server error."

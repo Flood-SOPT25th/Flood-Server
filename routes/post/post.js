@@ -17,8 +17,14 @@ router.get('/top', authUtils.LoggedIn ,async (req,res,next) => {
     try {
         let codeResult = await user.findOne({email:userEmail}).select({groupCode: 1})
 
+        if (!codeResult) return res.status(410).json({message:"userEmail에 맞는 결과가 없습니다."}) // 에러 처리
+
+
         let result = await post.find({groupCode:codeResult.groupCode})
         
+        if (!result) return res.status(410).json({message:"groupCode에 맞는 결과가 없습니다."}) // 에러 처리
+
+
         result.sort((a, b) => { 
             return a.score < b.score ? 1 : a.score > b.score ? -1 : 0;  
         });
@@ -40,9 +46,9 @@ router.get('/top', authUtils.LoggedIn ,async (req,res,next) => {
                 topArr : fin_result
             }
         })
-    } catch  {
+    } catch (err) {
         res.status(500).json({
-            message: "서버 에러"
+            message: `서버 에러: ${err}`
         })
     }
     
@@ -134,6 +140,12 @@ router.get('/hash', authUtils.LoggedIn, async (req,res,next) => {
     
     const category = req.query.category
     
+    if (!category) {
+        res.status(409).json({
+            message: "카테고리가 비어있습니다."
+        })
+    }
+
     var pageOptions = {
         page: req.query.page || 0,
         limit: req.query.limit || 10
@@ -163,9 +175,9 @@ router.get('/hash', authUtils.LoggedIn, async (req,res,next) => {
                 pidArr : result
             }
         })
-    } catch {
+    } catch (err) {
         res.status(500).json({
-            message: "서버 에러"
+            message: `서버 에러: ${err}`
         })
     }
     
@@ -183,15 +195,21 @@ router.post('/', authUtils.LoggedIn, upload.array('images'),async function(req, 
         postContent
     } = req.body
 
+    if (!category) {
+        res.status(409).json({
+            message: "카테고리가 비어있습니다."
+        })
+    }
+
     const userEmail = req.userEmail 
 
     try {
         let codeResult = await user.findOne({email:userEmail}).select({groupCode: 1, name: 1, profileImage: 1, email:1})
-
         const postImages = req.files
         var posts = new post()
         if (url.length !== 0){
             client.fetch(url, param,function(err, $, re){ 
+
                 if (err){  
                     res.status(500).json({
                         message: "크롤링 서버 에러",
@@ -202,7 +220,7 @@ router.post('/', authUtils.LoggedIn, upload.array('images'),async function(req, 
                 const image = $("meta[property='og:image']").attr('content')
                 const title = $("meta[property='og:title']").attr('content')
                 const description = $("meta[property='og:description']").attr('content')
-        
+                
                 if (image) {
                     posts.image = image
                 } else {
@@ -260,9 +278,9 @@ router.post('/', authUtils.LoggedIn, upload.array('images'),async function(req, 
             }) 
         }
         
-    } catch {
+    } catch (err) {
         res.status(500).json({
-            message: "서버 에러"
+            message: `서버 에러: ${err}`
         })
     }
   
