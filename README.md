@@ -97,7 +97,7 @@
 
 ![architecture](https://flood-master.s3.ap-northeast-2.amazonaws.com/Untitled+Diagram+(1).png)
 
-
+<br>
 ## DB ERD
 
 ![ERD](https://flood-master.s3.ap-northeast-2.amazonaws.com/Untitled+Diagram.png)
@@ -120,7 +120,6 @@
 * [PM2](http://pm2.keymetrics.io/) - 프로세스 관리자
 * [MongoDB](https://www.mongodb.com/) - NoSQL DB
 * [Docker](https://www.docker.com/) - 컨테이너 기반 가상화 플랫폼
-* [MongoDB](https://www.mongodb.com/) - NoSQL DB
 
 
 ## 개발자
