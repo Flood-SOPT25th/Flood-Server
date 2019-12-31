@@ -14,12 +14,16 @@ router.get('/', authUtils.LoggedIn, async (req, res, next) => {
     const userEmail = req.userEmail // decode info
     
     let result = await user.findOne({email : userEmail}).populate('bookmark.post').select({bookmark:1})
+
+    if (!result) return res.status(410).json({message:"userEmail에 맞는 결과가 없습니다."}) // 에러 처리
+
     let arr = []
     let allCount = 0 
     result.bookmark.forEach((n) => {
         var wrap = {}
         wrap.category_id = n._id
         wrap.categoryName = n.categoryName
+        
         if (n.post[0]) {
             wrap.thumb = n.post[0].image
             wrap.count = n.post.length
@@ -46,8 +50,7 @@ router.get('/', authUtils.LoggedIn, async (req, res, next) => {
     })
 })
 
-
-// 해당 북마크 조회 # 완료
+// 해당 북마크 조회 # 완료 # 수정해야 할 수도
 router.get('/detail', authUtils.LoggedIn, async (req, res, next) => {
 
     const category = req.query.category
@@ -62,6 +65,9 @@ router.get('/detail', authUtils.LoggedIn, async (req, res, next) => {
     const userEmail = req.userEmail // decode info
 
     let result = await user.findOne({email : userEmail}).populate('bookmark.post').select({bookmark:1})
+
+    if (!result) return res.status(410).json({message:"userEmail에 맞는 결과가 없습니다."}) // 에러 처리
+
     if (category == "all") {
         var arr = []
         result.bookmark.forEach((n) => {
@@ -74,15 +80,24 @@ router.get('/detail', authUtils.LoggedIn, async (req, res, next) => {
                 posts: arr
             }
         })
+        return
     } else {
         const count = result.bookmark.findIndex(i => i.categoryName == category); 
-
-        res.status(200).json({
-            message:"해당 북마크 조회 완료",
-            data:{
-                posts: result.bookmark[count].post
-            }
-        })
+        if (count !== -1) {
+            res.status(200).json({
+                message:"해당 북마크 조회 완료",
+                data:{
+                    posts: result.bookmark[count].post
+                }
+            })
+            return
+        } else {
+            res.status(409).json({
+                message:"카테고리명이 정확하지 않습니다."
+            })
+            return
+        }
+        
     }
 })
 
@@ -92,19 +107,24 @@ router.get('/detail', authUtils.LoggedIn, async (req, res, next) => {
 // 	delete:[_id,_id]
 // }
 
-// 카테고리 생성 수정 삭제 # 완료
+// 카테고리 생성 수정 삭제 # 완료 # 에러 ㄴ핸들링
 router.post('/', authUtils.LoggedIn, async (req, res, next) => {
     const categoryObejct = req.body.categoryObejct
+
     if (!categoryObejct) {
         res.status(400).json({
             message: "cagory 정보가 업습니다."
         })
         return
     }
+
     const userEmail = req.userEmail // decode info
     let result_message = ""
     try {
         let result = await user.findOne({email : userEmail})
+
+        if (!result) return res.status(410).json({message:"userEmail에 맞는 결과가 없습니다."}) // 에러 처리
+
         let message_count
         if (categoryObejct.add.length !== 0) {
             message_count = 0
@@ -158,19 +178,16 @@ router.post('/', authUtils.LoggedIn, async (req, res, next) => {
             message: `카테고리 ${result_message} 완료`,
             data: rere
         })
-    } catch {
+    } catch (err) {
         res.status(500).json({
-            message:"서버 에러"
+            message: `서버 에러: ${err}`
         })
     }
-    
-    
-
-    
 })
 
-// 북마크 추가 # 완료
+// 북마크 추가 # 완료 # 에러 핸들링
 router.post('/add', authUtils.LoggedIn, async (req, res, next) => {
+    
     const userEmail = req.userEmail
     const {post_id,category_id} = req.body
 
@@ -179,26 +196,27 @@ router.post('/add', authUtils.LoggedIn, async (req, res, next) => {
             message : "body가 비어 있습니다."
         })
     }
-
     try {
         let postResult = await post.findOne({_id : post_id})
+        
+        if (!postResult) return res.status(410).json({message:"post_id에 맞는 게시물이 없습니다."}) // 에러 처리
+        
         postResult.bookmark += 1
         let arr = postResult.bookmark_list
         arr.push(userEmail)
         postResult.bookmark_list = Array.from(new Set(arr))
         postResult.score = (postResult.bookmark * 0.7 + postResult.bookmark * 0.3) 
         await postResult.save()  // 북마크 수 증가
-
         let result = await user.findOne({email : userEmail})
+
+        if (!result) return res.status(410).json({message:"userEmail에 맞는 결과가 없습니다."}) // 에러 처리
+
         const count = result.bookmark.findIndex(i => i._id == category_id); 
         if (count !== -1) {
             result.bookmark[count].post.unshift(post_id)
             await result.save()
             res.status(200).json({
-                message: "북마크 추가완료",
-                data : {
-
-                }
+                message: "북마크 추가완료"
             })
         }
     } catch {
@@ -209,11 +227,11 @@ router.post('/add', authUtils.LoggedIn, async (req, res, next) => {
     
 })
 
-// 북마크 취소 #완료
+// 북마크 취소 #완료 # 에러핸들링
 router.post('/cancel', authUtils.LoggedIn, async (req, res, next) => {
     const {post_id} = req.body
 
-    if (post_id) {
+    if (!post_id) {
         res.status(400).json({
             message : "post_id가 비어있습니다."
         })
@@ -223,6 +241,9 @@ router.post('/cancel', authUtils.LoggedIn, async (req, res, next) => {
         const userEmail = req.userEmail // decode info
 
         let postResult = await post.findOne({_id:post_id})
+
+        if (!postResult) return res.status(410).json({message:"post_id에 맞는 게시물이 없습니다."}) // 에러 처리
+
         postResult.bookmark -= 1
         let arr = postResult.bookmark_list
         arr.splice(arr.indexOf(userEmail),1)
@@ -231,6 +252,9 @@ router.post('/cancel', authUtils.LoggedIn, async (req, res, next) => {
         await postResult.save()  // 북마크 수 감소
         
         let result = await user.findOne({email : userEmail})
+
+        if (!result) return res.status(410).json({message:"userEmail에 맞는 결과가 없습니다."}) // 에러 처리
+
 
         for (let n of result.bookmark) {
             const count = n.post.findIndex(i => i == post_id); 
@@ -242,14 +266,11 @@ router.post('/cancel', authUtils.LoggedIn, async (req, res, next) => {
         
         await result.save()
         res.status(200).json({
-            message: "북마크 취소",
-            data: {
-
-            }
+            message: "북마크 취소"
         })
-    } catch {
+    } catch (err) {
         res.status(500).json({
-            message : "서버 에러"
+            message : `서버 에러: ${err}`
         })
     }
 })
