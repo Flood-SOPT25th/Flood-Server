@@ -95,9 +95,10 @@
 
 ## Architecture
 
-![architecture](https://flood-master.s3.ap-northeast-2.amazonaws.com/Untitled+Diagram+(1).png)
+![architecture](https://flood-master.s3.ap-northeast-2.amazonaws.com/Untitled+Diagram+(1).png)  
 
 <br>
+
 ## DB ERD
 
 ![ERD](https://flood-master.s3.ap-northeast-2.amazonaws.com/Untitled+Diagram.png)
