@@ -14,7 +14,7 @@ router.post('/', async (req,res)=>{
         const result = await users.findOne({name:name, phone:phone}, {_id:0, email:1});
         if(!result){
             res.status(409).json({
-                message:"입력한 정보 불일치!."
+                message:"입력한 정보 불일치!"
             })
             return;
         }
