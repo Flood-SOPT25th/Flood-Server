@@ -82,7 +82,7 @@ router.get('/detail', authUtils.LoggedIn, async (req, res, next) => {
         })
         return
     } else {
-        const count = result.bookmark.findIndex(i => i.categoryName == category); 
+        const count = result.bookmark.findIndex(i => i._id == category); 
         if (count !== -1) {
             res.status(200).json({
                 message:"해당 북마크 조회 완료",

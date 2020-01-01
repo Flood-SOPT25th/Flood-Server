@@ -14,9 +14,13 @@
 
 
 .group-image {
-    background-image: url('/images/msg_logo_thumb.jpg');
+    margin-left: 0px;
+    margin-top: 0px;
+    margin-right: 0px;
+    margin-bottom: 0px;
+    background: url('/images/msg_logo_thumb.jpg')  no-repeat center top;
     height: 400px;
-    background-attachment: fixed;
+    /* background-attachment: fixed; */
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -32,7 +36,6 @@
 
 .group-post .nav-bar ul{
     display: flex;
-    border: 1px solid black;
 }
 
 .group-post .nav-bar ul li {
