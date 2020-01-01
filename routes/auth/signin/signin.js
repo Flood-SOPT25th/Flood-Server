@@ -11,13 +11,9 @@ router.post('/',async (req,res)=>{
 
     //1. 파라미터체크
     if(!email || !password){
-        const missParameters = Object.entries({email, password})
-        .filter(it =>it[1] == undefined).map(it => it[0]).join(',');
-        const errData = {
+        res.status(400).json({
             message: "아이디와 비밀번호를 입력 해 주세요."
-            // data:`${missParameters}`
-        }
-        res.status(400).json(errData);
+        });
         console.log(errData);
         return;
     }
@@ -34,7 +30,6 @@ router.post('/',async (req,res)=>{
     } catch(err){
         res.status(500).json({
             message:"아이디 체크 오류."
-            // err:err
         })
         return;
     }
@@ -62,8 +57,7 @@ router.post('/',async (req,res)=>{
     }catch(err){
         console.log(err);
         res.status(500).json({
-            message:"서버 에러"
-            // data:err
+            message:"server error"
         })
         return;
     }

@@ -8,7 +8,7 @@ router.post('/',async (req,res)=>{
 
     //1. 파라미터체크
     if(!email || !password || !name || !phone || !question || !answer){
-        res.status(400).json({
+        res.status(200).json({
             message: "필수 정보를 입력하세요."
         });
         return;
