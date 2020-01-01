@@ -104,7 +104,7 @@
 ![ERD](https://flood-master.s3.ap-northeast-2.amazonaws.com/Untitled+Diagram.png)
 
 
-## 배포 방법 
+## 배포
 
 * AWS EC2 - 클라우드 컴퓨팅 시스템
 * AWS elastic beanstlak - 서버 배포및 관리 프로비저닝 서비스
