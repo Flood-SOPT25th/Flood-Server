@@ -80,8 +80,8 @@ router.put('/', authUtils.LoggedIn, async function (req, res, next) {
             .filter(it => it[1] == undefined).map(it => it[0]).join(', ');
 
         const errData = {
-            message: `필요한 정보를 모두 입력하세요.`,
-            data: `${missParameters}`
+            message: `필요한 정보를 모두 입력하세요.`
+            // data: `${missParameters}`
         }
         res.status(400).json(errData);
         console.log(errData);
@@ -159,8 +159,8 @@ router.put('/password', authUtils.LoggedIn, async function (req, res, next) {
                 .filter(it => it[1] == undefined).map(it => it[0]).join(', ');
 
             const errData = {
-                message: `필요한 정보를 모두 입력하세요.`,
-                data: `${missParameters}`
+                message: `필요한 정보를 모두 입력하세요.`
+                // data: `${missParameters}`
             }
             console.log("필요 정보 부족");
             res.status(400).json(errData);
@@ -232,8 +232,7 @@ router.put('/image', authUtils.LoggedIn, upload.single('image'), function (req, 
         })
         .catch((err) => {
             res.status(500).json({
-                message: "server error",
-                err: err
+                message: "server error"
             })
             console.log(err);
         })

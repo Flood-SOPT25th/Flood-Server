@@ -14,8 +14,8 @@ router.post('/',upload.single('image'),async (req,res)=>{
         const missParameters = Object.entries({email, password, name, phone, rank, question, answer})
         .filter(it =>it[1] == undefined).map(it => it[0]).join(',');
         const errData = {
-            message: "필수 정보를 입력하세요.",
-            data:`${missParameters}`
+            message: "필수 정보를 입력하세요."
+            // data:`${missParameters}`
         }
         res.status(400).json(errData);
         return;
@@ -65,10 +65,10 @@ router.post('/',upload.single('image'),async (req,res)=>{
     })
     .catch((err)=>{
         res.status(500).json({
-            message:"server error",
-            err:{
-                err:err
-            }
+            message:"서버 에러"
+            // err:{
+            //     err:err
+            // }
         })
     })
 })
