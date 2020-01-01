@@ -39,11 +39,29 @@ router.post('/',upload.single('image'),async (req,res)=>{
         }
     }
 
-    //3.비밀번호 암호화
+    //3.핸드폰번호 중복 체크
+    try{
+        const result = await users.findOne({phone:phone},{_id:0,phone:1})
+        if(result){
+            res.status(409).json({
+                message:"이미 존재하는 연락처 입니다."
+            })
+            return;
+        }
+    }catch (err) { 
+        if(err){
+            res.status(500).json({
+                message:"phone number server error."
+            })
+            return;
+        }
+    }
+
+    //4.비밀번호 암호화
     const salt = encryption.salt();
     const key = encryption.makeCrypto(password,salt);
 
-    //6. 회원 가입 완료
+    //5. 회원 가입 완료
     var userModel = new users();
     userModel.email = email;
     userModel.salt = salt;

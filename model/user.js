@@ -6,7 +6,7 @@ var userSchema = new Schema({
     email : {type:String, required: true, unique: true},
     password: {type: String, required :true},
     salt : String,
-    phone : {type: String, required :true},
+    phone : {type: String, required :true, unique:true},
     rank:String,
     groupCode:{type:String, default: null}, // 조직 코드를 삽입
     profileImage:String,  // 이미지 url  // multer aws s3
