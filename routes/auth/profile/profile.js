@@ -9,11 +9,10 @@ router.post('/', authUtils.LoggedIn, upload.single('image'), async (req,res)=>{
     //1. 값 받기
     const {profileName, rank} = req.body;
     const email = req.userEmail;
+    const profileImage =req.file;
 
     //2. 파라미터처리
     if(!profileName || !rank){
-        const missParameters = Object.entries({profileName, rank})
-        .filter(it =>it[1] == undefined).map(it => it[0]).join(',');
         res.status(400).json({
             message: "필수 정보를 입력하세요."
         });
@@ -22,7 +21,7 @@ router.post('/', authUtils.LoggedIn, upload.single('image'), async (req,res)=>{
 
     //3. 저장
     try{
-        const result = await users.findOneAndUpdate({email:email}, {$set:{profileName:profileName, rank:rank}},{new:true}); //업데이트 
+        const result = await users.findOneAndUpdate({email:email}, {$set:{profileName:profileName, rank:rank, profileImage:profileImage.location}},{new:true}); //업데이트 
         if(!result){
             res.status(403).json({
                 message:"프로필 업데이트 실패."
