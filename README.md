@@ -1,7 +1,7 @@
 # Flood
 > 정보를 공유하는 가장 쉬운 방법
 
-<img src="https://flood-master.s3.ap-northeast-2.amazonaws.com/KakaoTalk_Photo_2020-01-02-03-54-55-1.png" width="200px" />
+<img style="boder: 1px solid black;" src="https://flood-master.s3.ap-northeast-2.amazonaws.com/KakaoTalk_Photo_2020-01-02-03-54-55-1.png" width="200px" />
 ![node_badge](https://img.shields.io/badge/node-%3E%3D%208.0.0-green)
 ![npm_bedge](https://img.shields.io/badge/npm-v6.10.1-blue)
 
