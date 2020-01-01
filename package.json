@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodem ./bin/www"
+    "start": "node ./bin/www"
   },
   "dependencies": {
     "aws-sdk": "^2.596.0",

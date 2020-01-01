@@ -187,6 +187,8 @@ router.get('/hash', authUtils.LoggedIn, async (req,res,next) => {
 // 게시물 업로드 # 완료
 router.post('/', authUtils.LoggedIn, upload.array('images'),async function(req, res, next) {
     
+    console.log(req.files)
+
     var param = {}
 
     let {

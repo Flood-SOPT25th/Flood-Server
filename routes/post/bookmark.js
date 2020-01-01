@@ -113,7 +113,7 @@ router.post('/', authUtils.LoggedIn, async (req, res, next) => {
 
     if (!categoryObejct) {
         res.status(400).json({
-            message: "cagory 정보가 업습니다."
+            message: "category 정보가 없습니다."
         })
         return
     }

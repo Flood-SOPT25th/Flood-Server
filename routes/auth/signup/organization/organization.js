@@ -34,8 +34,8 @@ router.post('/',upload.single('image'),authUtils.LoggedIn, async (req,res)=>{
         const missParameters = Object.entries({name, phone, department, groupImage, category})
         .filter(it =>it[1] == undefined).map(it => it[0]).join(',');
         res.status(400).json({
-            message:"모든 정보를 입력해 주세요.",
-            data:`${missParameters}`
+            message:"모든 정보를 입력해 주세요."
+            // data:`${missParameters}`
         })
         return;
     }
@@ -74,8 +74,8 @@ router.post('/',upload.single('image'),authUtils.LoggedIn, async (req,res)=>{
     })
     .catch((err)=>{
         res.status(500).json({
-            message:"server error",
-            data:err
+            message:"server error"
+            // data:err
         })
     })
 })

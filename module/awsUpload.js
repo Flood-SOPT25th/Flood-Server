@@ -11,7 +11,9 @@ let upload = multer({
         s3: s3,
         bucket: "flood-master",
         key: function (req, file, cb) {
+            // console.log("파일: "+file.originalname)
             let extension = path.extname(file.originalname)
+            // console.log(extension)
             cb(null, Date.now().toString() + extension)
         },
         acl: 'public-read-write',
