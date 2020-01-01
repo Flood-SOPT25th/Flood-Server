@@ -4,7 +4,7 @@ const authUtils = require('../../../module/authUtils');
 const users = require('../../../model/user');
 const upload = require('../../../module/awsUpload');
 
-router.post('/', authUtils.LoggedIn, upload.single('image'), async (req,res)=>{
+router.put('/', authUtils.LoggedIn, upload.single('image'), async (req,res)=>{
     
     //1. 값 받기
     const {profileName, rank} = req.body;
@@ -12,7 +12,7 @@ router.post('/', authUtils.LoggedIn, upload.single('image'), async (req,res)=>{
     const profileImage =req.file;
 
     //2. 파라미터처리
-    if(!profileName || !rank){
+    if(!profileName || !rank || !profileImage){
         res.status(400).json({
             message: "필수 정보를 입력하세요."
         });
