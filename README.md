@@ -8,7 +8,7 @@
 
 * [API 문서](https://github.com/Flood-SOPT25th/Flood-Server/wiki)
 
-
+<br>
 
 
 ## 프로젝트 설명
@@ -16,6 +16,7 @@
 정보를 공유하는 가장 쉬운 방법!! Flood입니다. 회사내에 분산된, 정보 공유를 더 빠르고 쉽게 공유하는 플랫폼이며  
 동시에 정보의 홍수속에서 각각 회사들이 공유하고 있는 정보를 필터링하여 일반 유저들에게 제공하는 서비스입니다.
 
+<br>
 
 ## Team Role
 
@@ -42,6 +43,8 @@
 - 회원가입 기능 구현
 - 로그인 기능 구현
 - 조직 생성 기능 구현
+
+<br>
 
 ## Features
 
@@ -91,7 +94,7 @@
   }
 ```
 
-
+<br>
 
 ## Architecture
 
@@ -103,6 +106,7 @@
 
 ![ERD](https://flood-master.s3.ap-northeast-2.amazonaws.com/Untitled+Diagram.png)
 
+<br>
 
 ## 배포
 
@@ -112,6 +116,8 @@
 * Atlas - MongoDB 클라우드 호스팅 서비스
 * Docker - 컨테이너 기반 가상화 소프트웨어 플랫폼
 * Nginx - 프록시 서버 (보안 향상 및 캐시를 활용한 전송 속도 향상)
+
+<br>
 
 ## 사용된 도구 
 
