@@ -23,16 +23,17 @@ module.exports ={
         let decoded;
     try{
         decoded = jwt.verify(token,secretOrPrivateKey);
+        console.log(decoded);
     } catch(err){
         if(err.message === 'jwt expired'){
             console.log('expired token');
-            return -2;
+            return -1;
         }else if(err.message === 'invalid token') {
             console.log("invalid token");
             return -2;
         } else{
             console.log("invalid token");
-            return -2;
+            return -3;
         }
     }
     return decoded;
