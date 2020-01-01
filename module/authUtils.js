@@ -1,9 +1,11 @@
 const jwt = require('./jwt')
 const statusCode = require('./statusCode')
+//const findToken = require('./findToken')
 
 module.exports = {
     LoggedIn: async (req, res, next) => {
         const token = req.headers.authorization
+        //const refreshToken = req.headers.authorization
         if (!token) {
             res.status(409).json({
                 message: "토큰 없음"
@@ -11,6 +13,10 @@ module.exports = {
         } else {
             result = jwt.verify(token);
             console.log(result)
+            /*if(refreshToken && result == -1){
+                result = jwt.verify(findToken.searchRefreshToken(refreshToken))
+                console.log('토큰 재생성'+result);
+            }*/
             if (result == -1) {
                 return res.status(statusCode.UNAUTHORIZED).json({
                     message:"만료된 토큰입니다."

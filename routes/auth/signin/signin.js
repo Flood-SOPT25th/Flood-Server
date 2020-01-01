@@ -45,6 +45,7 @@ router.post('/',async (req,res)=>{
         const dbPw = (encryption.makeCrypto(password, userData.salt)).toString('base64');        
         if(dbPw == userData.password){
             const result = jwt.sign(userData);
+            await user.updateOne({email:email}, {$set:{refreshToken:result.refreshToken}},{new:true}) //리프레시 토큰 db저장
             res.status(200).json({
                 message:"로그인 완료",
                 data:result
