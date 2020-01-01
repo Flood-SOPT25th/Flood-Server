@@ -1,6 +1,8 @@
 # Flood
 > 정보를 공유하는 가장 쉬운 방법
 
+<img style="border: 1px solid black !important; border-radius:20px;" src="https://flood-master.s3.ap-northeast-2.amazonaws.com/KakaoTalk_Photo_2020-01-02-03-54-55-1.png" width="200px" />
+
 ![node_badge](https://img.shields.io/badge/node-%3E%3D%208.0.0-green)
 ![npm_bedge](https://img.shields.io/badge/npm-v6.10.1-blue)
 
@@ -8,7 +10,7 @@
 
 * [API 문서](https://github.com/Flood-SOPT25th/Flood-Server/wiki)
 
-
+<br>
 
 
 ## 프로젝트 설명
@@ -16,6 +18,7 @@
 정보를 공유하는 가장 쉬운 방법!! Flood입니다. 회사내에 분산된, 정보 공유를 더 빠르고 쉽게 공유하는 플랫폼이며  
 동시에 정보의 홍수속에서 각각 회사들이 공유하고 있는 정보를 필터링하여 일반 유저들에게 제공하는 서비스입니다.
 
+<br>
 
 ## Team Role
 
@@ -26,9 +29,8 @@
 - 북마크 기능 구현
 - 게시물 업로드, 수정 기능 구현
 - 댓글 및 대댓글 기능 구현
-- 웹 퍼블리싱 및 서버 구축
+- 프록시 서버 및 메인 서버 설정, 배포
 - Docker build 및 이미지 관리
-- AWS EC2에 서버 배포 책임
 
 #### 박주연 
 
@@ -43,6 +45,8 @@
 - 로그인 기능 구현
 - 조직 생성 기능 구현
 
+<br>
+
 ## Features
 
 - url로 해당 게시물의 썸네일, 제목, 소개 크롤링.
@@ -50,6 +54,8 @@
 - 그룹 내 사용자들의 조회수 및 북마크수를 기반으로 Top3 게시물 추천.
 - 회사 내에 게시물들을 정리하여 통계적 그래프로 시각화.
 - 중복되지 않는 조직 코드 생성
+
+<br>
 
 ## Package
 
@@ -91,11 +97,11 @@
   }
 ```
 
-
+<br>
 
 ## Architecture
 
-![architecture](https://flood-master.s3.ap-northeast-2.amazonaws.com/Untitled+Diagram+(1).png)  
+![architecture](https://flood-master.s3.ap-northeast-2.amazonaws.com/Untitled+Diagram+(1)+(2).png)  
 
 <br>
 
@@ -103,6 +109,7 @@
 
 ![ERD](https://flood-master.s3.ap-northeast-2.amazonaws.com/Untitled+Diagram.png)
 
+<br>
 
 ## 배포
 
@@ -111,7 +118,9 @@
 * AWS S3 - 클라우드 데이터 저장소
 * Atlas - MongoDB 클라우드 호스팅 서비스
 * Docker - 컨테이너 기반 가상화 소프트웨어 플랫폼
+* Nginx - 프록시 서버 (보안 향상 및 캐시를 활용한 전송 속도 향상)
 
+<br>
 
 ## 사용된 도구 
 
@@ -121,7 +130,7 @@
 * [PM2](http://pm2.keymetrics.io/) - 프로세스 관리자
 * [MongoDB](https://www.mongodb.com/) - NoSQL DB
 * [Docker](https://www.docker.com/) - 컨테이너 기반 가상화 플랫폼
-
+* [Nginx](https://www.nginx.com/) - 웹 서버 소프트웨어(프록시 서버용)
 
 ## 개발자
 

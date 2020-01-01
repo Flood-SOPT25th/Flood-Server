@@ -3,13 +3,11 @@ var router = express.Router();
 var randomCode = require('../../../../module/randomCode');
 const groups = require('../../../../model/group');
 const users = require('../../../../model/user');
-var upload = require('../../../../module/awsUpload');
 var authUtils = require('../../../../module/authUtils');
 
-router.post('/',upload.single('image'),authUtils.LoggedIn, async (req,res)=>{
+router.post('/',authUtils.LoggedIn, async (req,res)=>{
     const userEmail = req.userEmail;
     const{name, phone, department, category} = req.body;
-    const groupImage = req.file;
 
     //1. 조직이 존재하면 코드 생성 불가
     try{
@@ -30,12 +28,9 @@ router.post('/',upload.single('image'),authUtils.LoggedIn, async (req,res)=>{
     }
 
     //2. 파라미터체크 #완료
-    if(!name || !phone || !department || !groupImage || !category){
-        const missParameters = Object.entries({name, phone, department, groupImage, category})
-        .filter(it =>it[1] == undefined).map(it => it[0]).join(',');
+    if(!name || !phone || !department || !category){
         res.status(400).json({
             message:"모든 정보를 입력해 주세요."
-            // data:`${missParameters}`
         })
         return;
     }
@@ -60,7 +55,6 @@ router.post('/',upload.single('image'),authUtils.LoggedIn, async (req,res)=>{
     groupModel.phone = phone;
     groupModel.department = department
     groupModel.groupCode = groupCode;
-    groupModel.groupImage = groupImage.location;
     groupModel.category.push("flood") // 첫 번째 허수 추가
     category.forEach((n) => {
         groupModel.category.push(n)
