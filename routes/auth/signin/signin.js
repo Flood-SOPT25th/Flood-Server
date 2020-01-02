@@ -40,7 +40,15 @@ router.post('/',async (req,res)=>{
         const dbPw = (encryption.makeCrypto(password, userData.salt)).toString('base64');        
         if(dbPw == userData.password){
             const result = jwt.sign(userData);
-            await user.updateOne({email:email}, {$set:{refreshToken:result.refreshToken}},{new:true}) //리프레시 토큰 db저장
+            const data = await user.findOneAndUpdate({email:email}, {$set:{refreshToken:result.refreshToken}},{new:true}) //리프레시 토큰 db저장
+            if(data.groupCode == null){
+                console.log(data.groupCode);
+                res.status(200).json({
+                    message:"로그인 완료. 그룹코드 없음",
+                    data:result
+                })
+                return;
+            }
             res.status(200).json({
                 message:"로그인 완료",
                 data:result
