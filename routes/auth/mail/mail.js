@@ -14,7 +14,7 @@ const randomCode = require('../../../module/randomCode');
 4. 사용자가 이메일 입력 후 비교
 5. password 변경창으로 이동
 */
-router.post('/', async (req,res,next)=>{
+router.post('/', async (req,res,)=>{
     //1.body에 이메일 입력
     const {email} = req.body;
     //2.사용자 이메일 스키마 안에 이메일 코드 생성 후 메일로 전송.
@@ -38,15 +38,15 @@ router.post('/', async (req,res,next)=>{
 
     //3.이메일 전송 옵션 설정
     let transporter = nodemailer.createTransport({
-        service: 'gmail',
+        service: mailConfig.mailService,
         auth: {
-            user: 'yeonghun0327@gmail.com', // gmail 계정 아이디를 입력
-            pass: '' // gmail 계정의 비밀번호를 입력
+            user: mailConfig.mailId, // gmail 계정 아이디를 입력
+            pass: mailConfig.mailPassword // gmail 계정의 비밀번호를 입력
         }
     });
 
     let mailOptions = {
-        from: 'yeonghun0327@gmail.com', // 발송 메일 주소 (위에서 작성한 gmail 계정 아이디)
+        from: mailConfig.mailId, // 발송 메일 주소 (위에서 작성한 gmail 계정 아이디)
         to: email, // 수신 메일 주소
         subject: 'Sending Email using Node.js', // 제목
         text: 'That was easy!' // 내용
@@ -55,12 +55,16 @@ router.post('/', async (req,res,next)=>{
     transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
             console.log(error);
+            res.status(409).json({
+                message:"메일 전송 실패"
+            })
+            return;
         } else {
             console.log('Email sent: ' + info.response);
         }
     });
 
-    res.redirect("/");
+    
 })
 
 module.exports = router;

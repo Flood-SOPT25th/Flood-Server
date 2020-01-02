@@ -1,5 +1,6 @@
 const jwt = require('./jwt')
 const statusCode = require('./statusCode')
+const user = require('../model/user');
 //const findToken = require('./findToken')
 
 module.exports = {
@@ -44,6 +45,6 @@ module.exports = {
                 next()
             }
         }
-
+        
     }
 }
