@@ -1,5 +1,3 @@
-# Flood
-> 정보를 공유하는 가장 쉬운 방법
 
 <img style="border: 1px solid black !important; border-radius:20px;" src="https://flood-master.s3.ap-northeast-2.amazonaws.com/KakaoTalk_Photo_2020-01-02-03-54-55-1.png" width="200px" />
 
@@ -13,17 +11,30 @@
 <br>
 
 
-## 프로젝트 설명
+## :card_index_dividers: 프로젝트 설명
+## :bookmark_tabs: 프로젝트 설명
 
-정보를 공유하는 가장 쉬운 방법!! Flood입니다. 회사내에 분산된, 정보 공유를 더 빠르고 쉽게 공유하는 플랫폼이며  
-동시에 정보의 홍수속에서 각각 회사들이 공유하고 있는 정보를 필터링하여 일반 유저들에게 제공하는 서비스입니다.
+정보를 공유하는 가장 쉬운 방법, Flood입니다. :ocean:
+<br>
+회사내에 분산된, 정보 공유를 더 빠르고 쉽게 공유하는 플랫폼으로  정보의 홍수 속에서 
+각각 회사들이 공유하고 있는 정보를 필터링하여 일반 유저들에게 제공하는 서비스입니다.
 
 <br>
 
-## Team Role
+## :heavy_check_mark: Features
+
+- url로 해당 게시물의 썸네일, 제목, 소개 크롤링.
+- 공유하기 버튼을 사용하여, 쉽게 공유하기 가능.
+- 그룹 내 사용자들의 조회수 및 북마크수를 기반으로 Top3 게시물 추천.
+- 회사 내에 게시물들을 정리하여 통계적 그래프로 시각화.
+- 중복되지 않는 조직 코드 생성
+
+<br>
+
+## :family_man_woman_girl_girl: Team Role 
 
 
-#### 이동훈 
+#### :surfing_man: 이동훈 
 
 - 게시물, 북마크, 댓글 관련 DB 설계및 구축
 - 북마크 기능 구현
@@ -32,14 +43,13 @@
 - 프록시 서버 및 메인 서버 설정, 배포
 - Docker build 및 이미지 관리
 
-#### 박주연 
+#### :surfing_woman: 박주연 
 
 - 마이페이지 프로필 설정 변경 기능 구현
 - 이미지 및 비밀번호 변경 기능 구현
 - 조직설정, 계정관리 기능 구현
-- 각 기능별 테스팅 자동화 환경 구축
 
-#### 최영훈
+#### :surfing_man: 최영훈
 
 - user, group 관련 DB 설계및 구축
 - 회원가입 기능 구현
@@ -51,17 +61,7 @@
 
 <br>
 
-## Features
-
-- url로 해당 게시물의 썸네일, 제목, 소개 크롤링.
-- 공유하기 버튼을 사용하여, 쉽게 공유하기 가능.
-- 그룹 내 사용자들의 조회수 및 북마크수를 기반으로 Top3 게시물 추천.
-- 회사 내에 게시물들을 정리하여 통계적 그래프로 시각화.
-- 중복되지 않는 조직 코드 생성
-
-<br>
-
-## Package
+## :blue_book: Package
 
 사용 패키지(모듈)은 다음과 같습니다.
 
@@ -74,19 +74,16 @@
 - **multer-s3** : AWS S3 파일 업로드 도구
 - **rand-token** : 랜덤 토큰 생성 도구
 - **moment** : 임의의 문자열과 unix시간을 조합해 중복되지 않는 조직코드 생성
-- **mocha** : 테스팅 자동화 환경 구축 도구
 
 
 ```json
 "dependencies": {
     "aws-sdk": "^2.596.0",
-    "chai": "^4.2.0",
     "cheerio-httpcli": "^0.7.4",
     "cookie-parser": "~1.4.4",
     "crypto": "^1.0.1",
     "debug": "~2.6.9",
     "ejs": "~2.6.1",
-    "expect": "^24.9.0",
     "express": "~4.16.1",
     "express-formidable": "^1.2.0",
     "http-errors": "~1.6.3",
@@ -100,31 +97,25 @@
     "nodemon": "^2.0.2",
     "path": "^0.12.7",
     "rand-token": "^0.4.0",
-    "request": "^2.88.0",
-    "should": "^13.2.3",
-    "supertest": "^4.0.2",
     "uuid": "^3.3.3"
-  },
-  "devDependencies": {
-    "mocha": "^6.2.2"
   }
 ```
 
 <br>
 
-## Architecture
+## :green_book: Architecture
 
 ![architecture](https://flood-master.s3.ap-northeast-2.amazonaws.com/Untitled+Diagram+(1)+(2).png)  
 
 <br>
 
-## DB ERD
+## :green_book: DB ERD
 
 ![ERD](https://flood-master.s3.ap-northeast-2.amazonaws.com/Untitled+Diagram.png)
 
 <br>
 
-## 배포
+## :closed_book: 배포
 
 * AWS EC2 - 클라우드 컴퓨팅 시스템
 * AWS elastic beanstlak - 서버 배포및 관리 프로비저닝 서비스
@@ -135,7 +126,7 @@
 
 <br>
 
-## 사용된 도구 
+## :books: 사용된 도구 
 
 * [Node.js](https://nodejs.org/ko/)
 * [Express.js](http://expressjs.com/ko/) 
@@ -145,7 +136,7 @@
 * [Docker](https://www.docker.com/) - 컨테이너 기반 가상화 플랫폼
 * [Nginx](https://www.nginx.com/) - 웹 서버 소프트웨어(프록시 서버용)
 
-## 개발자
+## :computer: 개발자
 
 * [박주연](https://github.com/Ju-Yeon)
 * [이동훈](https://github.com/donghunee)
