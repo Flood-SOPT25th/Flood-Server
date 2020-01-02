@@ -9,6 +9,7 @@ var debug = require('debug')('flood-server:server');
 var http = require('http');
 var mongoose = require('mongoose');
 mongoose.set('useCreateIndex', true);
+mongoose.set('useFindAndModify', false);
 const mongoosePW = require("../config/mongoDB.json")
 /**
  * Get port from environment and store in Express.
