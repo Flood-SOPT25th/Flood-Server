@@ -124,6 +124,7 @@ router.put('/add', authUtils.LoggedIn, async (req, res, next) => {
     try {
 
         const userIdx = await member_email.indexOf(userEmail)
+        
         if (userIdx >= 0) {
             member_email.splice(userIdx,1)
         }

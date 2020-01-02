@@ -27,7 +27,7 @@ router.post('/', authUtils.LoggedIn, async (req, res, next) => {
     let userEmail = req.userEmail
     let result = await user.findOne({email:userEmail}).select({name : 1, profileImage : 1})
     const {name, profileImage} = result
-
+    console.log(profileImage)
     if (!comment_id) {
         let comments = new comment()
         comments.content = commentContent

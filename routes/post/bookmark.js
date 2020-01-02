@@ -7,6 +7,9 @@ var statusCode = require('../../module/statusCode')
 var group = require('../../model/group')
 var user = require('../../model/user')
 var authUtils = require('../../module/authUtils')
+var randomImage = require('../../module/randomImage')
+
+
 
 // 북마크 조회 # 완료
 router.get('/', authUtils.LoggedIn, async (req, res, next) => {
@@ -29,7 +32,7 @@ router.get('/', authUtils.LoggedIn, async (req, res, next) => {
             wrap.count = n.post.length
             allCount += n.post.length
         }else {
-            wrap.thumb = ""
+            wrap.thumb = n.thumb
             wrap.count = 0
         }
         arr.push(wrap)
@@ -133,6 +136,7 @@ router.post('/', authUtils.LoggedIn, async (req, res, next) => {
                 if (count == -1) {
                     let wrap = {}
                     wrap.categoryName = n
+                    wrap.thumb = randomImage.randImage()
                     wrap.post = []
                     result.bookmark.unshift(wrap)
                     message_count +=1
@@ -243,11 +247,13 @@ router.post('/cancel', authUtils.LoggedIn, async (req, res, next) => {
         let postResult = await post.findOne({_id:post_id})
 
         if (!postResult) return res.status(410).json({message:"post_id에 맞는 게시물이 없습니다."}) // 에러 처리
-
-        postResult.bookmark -= 1
+        
+        if (postResult.bookmark !== 0){
+            postResult.bookmark -= 1
+        } 
         let arr = postResult.bookmark_list
         arr.splice(arr.indexOf(userEmail),1)
-        postResult.bookmark_list =arr
+        postResult.bookmark_list = arr
         postResult.score = (postResult.bookmark * 0.7 + postResult.bookmark * 0.3) 
         await postResult.save()  // 북마크 수 감소
         
