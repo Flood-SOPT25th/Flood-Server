@@ -4,10 +4,11 @@
 ![node_badge](https://img.shields.io/badge/node-%3E%3D%208.0.0-green)
 ![npm_bedge](https://img.shields.io/badge/npm-v6.10.1-blue)
 
-* SOPT 25th APPJAM
+* <b> SOPT 25th APPJAM
+    
 * 프로젝트 기간: 2019.12.22 ~ 2019.01.04
 
-* [API 문서](https://github.com/Flood-SOPT25th/Flood-Server/wiki)
+* [API 문서](https://github.com/Flood-SOPT25th/Flood-Server/wiki)</b>
 
 <br>
 
