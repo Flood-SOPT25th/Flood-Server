@@ -37,6 +37,7 @@
 - 마이페이지 프로필 설정 변경 기능 구현
 - 이미지 및 비밀번호 변경 기능 구현
 - 조직설정, 계정관리 기능 구현
+- 각 기능별 테스팅 자동화 환경 구축
 
 #### 최영훈
 
@@ -73,16 +74,19 @@
 - **multer-s3** : AWS S3 파일 업로드 도구
 - **rand-token** : 랜덤 토큰 생성 도구
 - **moment** : 임의의 문자열과 unix시간을 조합해 중복되지 않는 조직코드 생성
+- **mocha** : 테스팅 자동화 환경 구축 도구
 
 
 ```json
 "dependencies": {
     "aws-sdk": "^2.596.0",
+    "chai": "^4.2.0",
     "cheerio-httpcli": "^0.7.4",
     "cookie-parser": "~1.4.4",
     "crypto": "^1.0.1",
     "debug": "~2.6.9",
     "ejs": "~2.6.1",
+    "expect": "^24.9.0",
     "express": "~4.16.1",
     "express-formidable": "^1.2.0",
     "http-errors": "~1.6.3",
@@ -96,7 +100,13 @@
     "nodemon": "^2.0.2",
     "path": "^0.12.7",
     "rand-token": "^0.4.0",
+    "request": "^2.88.0",
+    "should": "^13.2.3",
+    "supertest": "^4.0.2",
     "uuid": "^3.3.3"
+  },
+  "devDependencies": {
+    "mocha": "^6.2.2"
   }
 ```
 
