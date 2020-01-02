@@ -107,7 +107,7 @@
 
 <br>
 
-## :green_book: DB ERD
+## :orange_book: DB ERD
 
 ![ERD](https://flood-master.s3.ap-northeast-2.amazonaws.com/Untitled+Diagram.png)
 
