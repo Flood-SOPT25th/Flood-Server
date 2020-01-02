@@ -3,7 +3,7 @@
 
 ![node_badge](https://img.shields.io/badge/node-%3E%3D%208.0.0-green)
 ![npm_bedge](https://img.shields.io/badge/npm-v6.10.1-blue)
-![Flood](https://img.shields.io/badge/npm-v6.10.1-blue)
+![Flood](https://img.shields.io/badge/Flood)
 
 * <b> SOPT 25th APPJAM
     
