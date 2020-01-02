@@ -13,7 +13,7 @@ var userSchema = new Schema({
     profileImage:String,  // 이미지 url  // multer aws s3
     bookmark: [{
         categoryName:String,
-        // thumb:[String],
+        thumb: String,
         post : [{type: mongoose.Schema.Types.ObjectId, ref: 'post'}],
     }],
     question:{type:String, required: true},

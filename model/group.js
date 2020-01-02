@@ -7,6 +7,7 @@ var groupSchema = new Schema({
     department: String, // 직무 마케팅, 개발..
     category:[String],
     groupImage:String,
+    groupIcon:String,
     groupCode:{
         type:String, 
         unique:true
