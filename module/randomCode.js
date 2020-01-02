@@ -8,10 +8,10 @@ module.exports ={
             groupCode += possible.charAt(Math.floor(Math.random() * possible.length));
         return groupCode+unixTime; // 5자리 그룹코드와 현재 시간 합
     }
+    //testing에 필요한 전화번호 랜덤값 return
     ,randNumber:()=>{
         var min = Math.ceil(min);
         var max = Math.floor(max);
-
         var phoneNumber = "010-";
         for(i = 0; i < 4; i++)
             phoneNumber +=  Math.floor(Math.random() * 10); 
