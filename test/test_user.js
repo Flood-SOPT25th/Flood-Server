@@ -72,7 +72,7 @@ describe("사용자 및 그룹 계정 테스트 ->", async function () {
             request(svr)
                 .post("/auth/signup")
                 .send(data)
-                .expect(400)
+                .expect(200)
                 .end(function (err, res) {
                     if (err) return done(err);
                     done();
