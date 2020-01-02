@@ -20,7 +20,7 @@
 
 <br>
 
-## :family_man_woman_girl_girl: Team Role 
+## :earth_americas: Team Role 
 
 
 #### :surfing_man: 이동훈 
