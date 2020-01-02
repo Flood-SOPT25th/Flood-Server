@@ -1,8 +1,8 @@
 
 <img style="border: 1px solid black !important; border-radius:20px;" src="https://flood-master.s3.ap-northeast-2.amazonaws.com/KakaoTalk_Photo_2020-01-02-03-54-55-1.png" width="200px" />
 
- </t>![node_badge](https://img.shields.io/badge/node-%3E%3D%208.0.0-green)
- ![npm_bedge](https://img.shields.io/badge/npm-v6.10.1-blue)
+![node_badge](https://img.shields.io/badge/node-%3E%3D%208.0.0-green)
+![npm_bedge](https://img.shields.io/badge/npm-v6.10.1-blue)
 
 * SOPT 25th APPJAM
 * 프로젝트 기간: 2019.12.22 ~ 2019.01.04
