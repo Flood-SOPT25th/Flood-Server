@@ -271,7 +271,7 @@ router.post('/', authUtils.LoggedIn, upload.array('images'),async function(req, 
             postImages.forEach((n) => {
                 posts.postImages.push(n.location)
             })
-            
+
             posts.save()
             .then((result) => {
                 res.status(200).json({

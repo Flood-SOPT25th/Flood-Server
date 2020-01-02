@@ -9,8 +9,6 @@ var user = require('../../model/user')
 var authUtils = require('../../module/authUtils')
 var randomImage = require('../../module/randomImage')
 
-
-
 // 북마크 조회 # 완료
 router.get('/', authUtils.LoggedIn, async (req, res, next) => {
 
@@ -22,15 +20,16 @@ router.get('/', authUtils.LoggedIn, async (req, res, next) => {
 
     let arr = []
     let allCount = 0 
+    let imageUrl = ''
     result.bookmark.forEach((n) => {
         var wrap = {}
         wrap.category_id = n._id
         wrap.categoryName = n.categoryName
-        
         if (n.post[0]) {
             wrap.thumb = n.post[0].image
             wrap.count = n.post.length
             allCount += n.post.length
+            imageUrl = n.post[0].image
         }else {
             wrap.thumb = n.thumb
             wrap.count = 0
@@ -40,7 +39,7 @@ router.get('/', authUtils.LoggedIn, async (req, res, next) => {
 
     const allwrap = {
         categoryName: "all",
-        thumb : "",
+        thumb : (imageUrl == "") ? randomImage.randImage(): imageUrl ,
         count : allCount
     } 
     arr.unshift(allwrap)
