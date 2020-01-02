@@ -19,7 +19,8 @@ var userSchema = new Schema({
     question:{type:String, required: true},
     answer: {type: String, required: true},
     admin: {type:Boolean, default: false},
-    refreshToken:{type:String, default: null}
+    refreshToken:{type:String, default: null},
+    emailCode:String
 }, { minimize: false })
 
 module.exports = mongoose.model('user',userSchema)
