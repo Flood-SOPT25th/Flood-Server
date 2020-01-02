@@ -11,7 +11,6 @@
 <br>
 
 
-## :card_index_dividers: 프로젝트 설명
 ## :bookmark_tabs: 프로젝트 설명
 
 정보를 공유하는 가장 쉬운 방법, Flood입니다. :ocean:
