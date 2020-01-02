@@ -184,6 +184,34 @@ router.get('/hash', authUtils.LoggedIn, async (req,res,next) => {
 
 })
 
+router.get('/me', authUtils.LoggedIn, async (req,res,next) => {
+    
+
+    var pageOptions = {
+        page: req.query.page || 0,
+        limit: req.query.limit || 10
+    }
+
+    const userEmail = req.userEmail 
+
+    try {
+        let result = await post.find({writer_email: userEmail}).skip(Number(pageOptions.page)).limit(Number(pageOptions.limit))
+
+        res.status(200).json({
+            message: "내가 쓴 글 피드 조회",
+            data: {
+                pidArr : result
+            }
+        })
+    } catch (err) {
+        res.status(500).json({
+            message: `서버 에러: ${err}`
+        })
+    }
+    
+
+})
+
 // 게시물 업로드 # 완료
 router.post('/', authUtils.LoggedIn, upload.array('images'),async function(req, res, next) {
     
