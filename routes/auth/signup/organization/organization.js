@@ -13,14 +13,14 @@ router.post('/',authUtils.LoggedIn, async (req,res)=>{
     try{
         const result = await users.findOne({email:userEmail},{_id:0, groupCode:1});
         if(result.groupCode != null){ // groupCode가 널값이 아니면
-            res.status(409).json({
+            res.status(200).json({
                 message:"이미 조직이 존재합니다."
             })
             return;
         }
     }catch(err){
         if(err){
-            res.status(500).json({
+            res.status(200).json({
                 message:"조직 생성자 중복 체크 서버 에러."
             })
             return;
@@ -29,7 +29,7 @@ router.post('/',authUtils.LoggedIn, async (req,res)=>{
 
     //2. 파라미터체크 #완료
     if(!name || !phone || !department || !category){
-        res.status(400).json({
+        res.status(200).json({
             message:"모든 정보를 입력해 주세요."
         })
         return;
@@ -42,7 +42,7 @@ router.post('/',authUtils.LoggedIn, async (req,res)=>{
     const result = await users.findOneAndUpdate({email:userEmail}, {$set:{admin:true, groupCode:groupCode}},{new:true});
     }catch(err){
         if(err){
-            res.status(500).json({
+            res.status(200).json({
                 message:"관리자 부여 서버 에러"
             })
             return;
