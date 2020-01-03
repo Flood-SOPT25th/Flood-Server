@@ -60,7 +60,7 @@ router.get('/', authUtils.LoggedIn, async function (req, res, next) {
 
 
 //프로필 정보 업데이트
-router.put('/', authUtils.LoggedIn, upload.single('image'), async function (req, res, next) {
+router.post('/', authUtils.LoggedIn, upload.single('image'), async function (req, res, next) {
 
     const userEmail = req.userEmail
 
@@ -104,10 +104,7 @@ router.put('/', authUtils.LoggedIn, upload.single('image'), async function (req,
         var output = await user.save();
         console.log("사용자 정보 업데이트 완료");
         res.status(200).json({
-            message: "사용자 정보 업데이트 완료",
-            data: {
-                user: output
-            }
+            message: "사용자 정보 업데이트 완료"
         })
     } catch (err) {
         res.status(500).json({
