@@ -58,10 +58,43 @@
                 <div class="post_description">현진 컴퍼니가 이번 발표한 IoT 기반 사업이 성공적으로 컨퍼런스를 마치면서 사람들의 관심이 집중되고 있다…</div>
                 <img class="post_image" src="/images/kakao.jpg">
             </div>
-            <span class="flips">Flips 35</span>
+            <span class="flips">Flips 35</span>  <span class="flips">Views 212</span>
         </div>
         <div class="post_item">
-            adwadawd
+            <div class="post_hash_list">
+                <div class="post_item_hash">IT</div>
+                <div class="post_item_hash top">TOP3</div>
+            </div>
+            <div class="post_wrap" OnClick="location.href ='https:/www.naver.com'" style="cursor:pointer;">
+                <div class="post_title">IoT 기반 떠오르는 기업.. “새로운 도전” </div>
+                <div class="post_description">현진 컴퍼니가 이번 발표한 IoT 기반 사업이 성공적으로 컨퍼런스를 마치면서 사람들의 관심이 집중되고 있다…</div>
+                <img class="post_image" src="/images/kakao.jpg">
+            </div>
+            <span class="flips">Flips 35</span>  <span class="flips">Views 212</span>
+        </div>
+        <div class="post_item">
+            <div class="post_hash_list">
+                <div class="post_item_hash">IT</div>
+                <div class="post_item_hash top">TOP3</div>
+            </div>
+            <div class="post_wrap" OnClick="location.href ='https:/www.naver.com'" style="cursor:pointer;">
+                <div class="post_title">IoT 기반 떠오르는 기업.. “새로운 도전” </div>
+                <div class="post_description">현진 컴퍼니가 이번 발표한 IoT 기반 사업이 성공적으로 컨퍼런스를 마치면서 사람들의 관심이 집중되고 있다…</div>
+                <img class="post_image" src="/images/kakao.jpg">
+            </div>
+            <span class="flips">Flips 35</span>  <span class="flips">Views 212</span>
+        </div>
+        <div class="post_item">
+            <div class="post_hash_list">
+                <div class="post_item_hash">IT</div>
+                <div class="post_item_hash top">TOP3</div>
+            </div>
+            <div class="post_wrap" OnClick="location.href ='https:/www.naver.com'" style="cursor:pointer;">
+                <div class="post_title">IoT 기반 떠오르는 기업.. “새로운 도전” </div>
+                <div class="post_description">현진 컴퍼니가 이번 발표한 IoT 기반 사업이 성공적으로 컨퍼런스를 마치면서 사람들의 관심이 집중되고 있다…</div>
+                <img class="post_image" src="/images/kakao.jpg">
+            </div>
+            <span class="flips">Flips 35</span>  <span class="flips">Views 212</span>
         </div>
     </div>
     
@@ -89,7 +122,16 @@
             ,fadeUntil=400 // 200px scroll or more will equiv to 0 opacity
             ,fading = $('.group-image');
         
-        
+        $(document).ready(function(){
+            $('#feed').click(function(){
+                var offset = $('.post_item').offset();
+                    //animate()메서드를 이용해서 선택한 태그의 스크롤 위치를 지정해서 0.4초 동안 부드럽게 해당 위치로 이동함
+                $('html').animate({scrollTop : offset.top-112}, 600);
+            });
+    
+        });
+
+
         $(window).bind('scroll', function(){
             var offset = $(document).scrollTop()
                 ,opacity = 0
