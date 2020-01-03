@@ -76,7 +76,19 @@
         </div>
         <div class="post_item">
             <div class="post_hash_list">
-                <div class="post_item_hash">IT</div>
+                <div class="post_item_hash">Trend</div>
+                <div class="post_item_hash top">TOP3</div>
+            </div>
+            <div class="post_wrap" OnClick="location.href ='https:/www.naver.com'" style="cursor:pointer;">
+                <div class="post_title">IoT 기반 떠오르는 기업.. “새로운 도전” </div>
+                <div class="post_description">현진 컴퍼니가 이번 발표한 IoT 기반 사업이 성공적으로 컨퍼런스를 마치면서 사람들의 관심이 집중되고 있다…</div>
+                <img class="post_image" src="/images/kakao.jpg">
+            </div>
+            <span class="flips">Flips 35</span>  <span class="flips">Views 212</span>
+        </div>
+        <div class="post_item">
+            <div class="post_hash_list">
+                <div class="post_item_hash">IoT</div>
                 <div class="post_item_hash top">TOP3</div>
             </div>
             <div class="post_wrap" OnClick="location.href ='https:/www.naver.com'" style="cursor:pointer;">
@@ -89,19 +101,6 @@
         <div class="post_item">
             <div class="post_hash_list">
                 <div class="post_item_hash">IT</div>
-                <div class="post_item_hash top">TOP3</div>
-            </div>
-            <div class="post_wrap" OnClick="location.href ='https:/www.naver.com'" style="cursor:pointer;">
-                <div class="post_title">IoT 기반 떠오르는 기업.. “새로운 도전” </div>
-                <div class="post_description">현진 컴퍼니가 이번 발표한 IoT 기반 사업이 성공적으로 컨퍼런스를 마치면서 사람들의 관심이 집중되고 있다…</div>
-                <img class="post_image" src="/images/kakao.jpg">
-            </div>
-            <span class="flips">Flips 35</span>  <span class="flips">Views 212</span>
-        </div>
-        <div class="post_item">
-            <div class="post_hash_list">
-                <div class="post_item_hash">IT</div>
-                <div class="post_item_hash top">TOP3</div>
             </div>
             <div class="post_wrap" OnClick="location.href ='https:/www.naver.com'" style="cursor:pointer;">
                 <div class="post_title">IoT 기반 떠오르는 기업.. “새로운 도전” </div>
@@ -180,7 +179,7 @@
                 labels: ['M', 'T', 'W', 'T', 'F', 'S','S'],
                 datasets: [{
                     label: 'WEEK',
-                    data: makeRandomArr(7,2,35),
+                    data: makeRandomArr(7,6,35),
                     backgroundColor: [
                         '#0057ff',
                         '#0057ff',
@@ -290,6 +289,12 @@
                 }]
             },
             options: {
+                elements: {
+                    center: {
+                      text: 25
+                    }
+                  },
+                
                 animation: {
                     duration:5000
                 },
@@ -303,6 +308,7 @@
                     text: 'category'
                 },
                 scales: {
+                    
                     pointLabels :{
                         fontStyle: "bolder",
                      },
@@ -354,13 +360,13 @@
 
                     ],
                     borderWidth: 1,
-                }]
+                }],
             },
             options: {
                 animation: {
                     duration:5000
                 },
-
+                responsive: true,
                 legend: {
                     display: true,
                     position:'bottom',
@@ -378,6 +384,7 @@
                 }
             }
         });
+
 
         </script>
   </body>

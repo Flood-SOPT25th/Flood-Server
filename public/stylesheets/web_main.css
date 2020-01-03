@@ -57,7 +57,7 @@ body {
     display: flex;
     width: 80%;
     top:45%;
-    left: 135px;
+    padding: 0 135px 0 135px;
     text-align: center;
     justify-content: space-between;
     flex-direction: row;
