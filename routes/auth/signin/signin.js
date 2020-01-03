@@ -42,9 +42,8 @@ router.post('/',async (req,res)=>{
             const result = jwt.sign(userData);
             const data = await user.findOneAndUpdate({email:email}, {$set:{refreshToken:result.refreshToken}},{new:true}) //리프레시 토큰 db저장
             if(data.groupCode == null){
-                console.log(data.groupCode);
                 res.status(200).json({
-                    message:"로그인 완료. 그룹코드 없음",
+                    message:"그룹코드 없음.",
                     data:result
                 })
                 return;
@@ -79,7 +78,7 @@ router.post('/organization', authUtils.LoggedIn, async (req,res)=>{
     //1. 코드 번호 확인 #확인
     try{
         const result = await groups.findOne({groupCode:groupCode},{_id:0,groupCode:1});
-        if(!result.groupCode){
+        if(result == null){//groupCode
             res.status(403).json({
                 message:"유효하지 않는 그룹 코드입니다."
             })

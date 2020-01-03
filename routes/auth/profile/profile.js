@@ -4,7 +4,7 @@ const authUtils = require('../../../module/authUtils');
 const users = require('../../../model/user');
 const upload = require('../../../module/awsUpload');
 
-router.put('/', authUtils.LoggedIn, upload.single('image'), async (req,res)=>{
+router.post('/', authUtils.LoggedIn, upload.single('image'), async (req,res)=>{
     
     //1. 값 받기
     const {profileName, rank} = req.body;
