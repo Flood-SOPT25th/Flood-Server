@@ -236,7 +236,7 @@
         var myChart1 = new Chart(ctx1, {
             type: 'line',
             data: {
-                labels: ['IT', 'UI/UX', 'Marketing', 'Startup', 'Finance', 'Politics'],
+                labels: ['IT', 'UI/UX', 'Marketing', 'Startup', 'Finance', 'Trend'],
                 datasets: [{
                     label: 'Nov',
                     data: makeRandomArr(6,23,82),
@@ -252,7 +252,6 @@
                     backgroundColor:'rgba(255, 159, 64, 0.11)',
                     borderColor: 'rgba(255, 159, 64, 1)',
                     borderWidth: 1,
-                    lineTension: 0
 
                 },
                 {
@@ -271,8 +270,6 @@
                     pointBorderWidth: 0,
                     fill:true,
                     backgroundColor:'rgba(75, 192, 192,0.11)',
-                    lineTension: 0
-
                 },
                 {
                     label: 'Jan',
@@ -290,8 +287,6 @@
                     pointBorderWidth: 0,
                     fill:true,
                     backgroundColor:'rgba(255, 99, 132,0.11)',
-                    lineTension: 0
-
                 }]
             },
             options: {
@@ -336,7 +331,7 @@
         var myChart2 = new Chart(ctx2, {
             type: 'doughnut',
             data: {
-                labels: ['IT', 'UI/UX', 'Marketing', 'Startup', 'Finance', 'Politics'],
+                labels: ['IT', 'UI/UX', 'Marketing', 'Startup', 'Finance', 'Trend'],
                 datasets: [{
                     label: '요일',
                     data: makeRandomArr(6,23,80),
