@@ -20,7 +20,7 @@ router.get('/top', authUtils.LoggedIn ,async (req,res,next) => {
         if (!codeResult) return res.status(410).json({message:"userEmail에 맞는 결과가 없습니다."}) // 에러 처리
 
 
-        let result = await post.find({groupCode:codeResult.groupCode})
+        let result = await post.find({groupCode:codeResult.groupCode, url: { $ne: null }})
         
         if (!result) return res.status(410).json({message:"groupCode에 맞는 결과가 없습니다."}) // 에러 처리
 
@@ -111,7 +111,7 @@ router.get('/', authUtils.LoggedIn, async (req,res,next) => {
     try {
         let codeResult = await user.findOne({email:userEmail}).select({groupCode: 1})
 
-        let result = await post.find({groupCode : codeResult.groupCode}).select({comments:0}).skip(Number(pageOptions.page)).limit(Number(pageOptions.limit))
+        let result = await post.find({groupCode : codeResult.groupCode}).select({comments:0}).sort({"postDate":-1}).skip(Number(pageOptions.page)).limit(Number(pageOptions.limit))
         result.forEach((n) => {
             let count = n.bookmark_list.findIndex(i => i == userEmail);
             if(count !== -1) {
@@ -157,7 +157,7 @@ router.get('/hash', authUtils.LoggedIn, async (req,res,next) => {
         let codeResult = await user.findOne({email:userEmail}).select({groupCode: 1})
 
     // 그룹 코드
-        let result = await post.find({groupCode : codeResult.groupCode, category : category}).skip(Number(pageOptions.page)).limit(Number(pageOptions.limit))
+        let result = await post.find({groupCode : codeResult.groupCode, category : category}).sort({"postDate":-1}).skip(Number(pageOptions.page)).limit(Number(pageOptions.limit))
         console.log("re")
 
         result.forEach((n) => {
@@ -195,7 +195,7 @@ router.get('/me', authUtils.LoggedIn, async (req,res,next) => {
     const userEmail = req.userEmail 
 
     try {
-        let result = await post.find({writer_email: userEmail}).skip(Number(pageOptions.page)).limit(Number(pageOptions.limit))
+        let result = await post.find({writer_email: userEmail}).sort({"postDate":-1}).skip(Number(pageOptions.page)).limit(Number(pageOptions.limit))
 
         res.status(200).json({
             message: "내가 쓴 글 피드 조회",

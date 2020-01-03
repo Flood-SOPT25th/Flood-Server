@@ -12,8 +12,22 @@
     </div>
     <div id="group_info">
         <div id="group_title">
-            <img class="group_logo" src='/images/log.jpg'>
-            <div class="group_name">배달의 민족</div>
+            <% if(title == "kakao"){ %>
+                <img class="group_logo" src='/images/kaka.png'>
+            <% }else if(title =="toss"){ %>
+                <img class="group_logo" src='/images/to_logo.png'>
+            <% }else{ %>
+                <img class="group_logo" src='/images/log.jpg'>
+            <% } %>
+            <div class="group_name">
+                <% if(title == "kakao"){ %>
+                    카카오
+                <% }else if(title =="toss"){ %>
+                    토스
+                <% }else{ %>
+                    배달의 민족
+                <% } %>
+            </div>
         </div>
         <div class="hash">
             <div class="hash-item">
@@ -131,6 +145,20 @@
     
         });
 
+        function makeRandom(min, max){
+            var RandVal = Math.floor(Math.random()*(max-min+1)) + min;
+            return RandVal;
+        }
+
+        function makeRandomArr(num,min,max) {
+            let arr = []
+
+            for(var i=0; i<num; i++) {
+                arr.push(makeRandom(min,max))
+            }
+
+            return arr
+        }
 
         $(window).bind('scroll', function(){
             var offset = $(document).scrollTop()
@@ -152,7 +180,7 @@
                 labels: ['M', 'T', 'W', 'T', 'F', 'S','S'],
                 datasets: [{
                     label: 'WEEK',
-                    data: [12, 19, 3, 5, 2, 3, 13],
+                    data: makeRandomArr(7,2,35),
                     backgroundColor: [
                         '#0057ff',
                         '#0057ff',
@@ -161,7 +189,6 @@
                         '#0057ff',
                         '#0057ff',
                         '#0057ff'
-
                     ],
                     barThickness: 4,
                     borderWidth: 1,
@@ -212,7 +239,7 @@
                 labels: ['IT', 'UI/UX', 'Marketing', 'Startup', 'Finance', 'Politics'],
                 datasets: [{
                     label: 'Nov',
-                    data: [12, 19, 3, 5, 2, 3],
+                    data: makeRandomArr(6,23,82),
                     pointBackgroundColor: [
                         'rgba(255, 99, 132, 1)',
                         'rgba(54, 162, 235, 1)',
@@ -228,7 +255,7 @@
                 },
                 {
                     label: 'Dec',
-                    data: [10, 9, 4, 3, 1, 3],
+                    data: makeRandomArr(6,23,82),
                     pointBackgroundColor: [
                         'rgba(255, 99, 132, 1)',
                         'rgba(54, 162, 235, 1)',
@@ -245,7 +272,7 @@
                 },
                 {
                     label: 'Jan',
-                    data: [3, 12, 4, 19, 1, 22],
+                    data: makeRandomArr(6,23,82),
                     pointBackgroundColor: [
                         'rgba(255, 99, 132, 1)',
                         'rgba(54, 162, 235, 1)',
@@ -306,7 +333,7 @@
                 labels: ['IT', 'UI/UX', 'Marketing', 'Startup', 'Finance', 'Politics'],
                 datasets: [{
                     label: '요일',
-                    data: [12, 19, 3, 5, 2, 3],
+                    data: makeRandomArr(6,23,80),
                     backgroundColor: [
                         'rgba(255, 99, 132, 1)',
                         'rgba(54, 162, 235, 1)',

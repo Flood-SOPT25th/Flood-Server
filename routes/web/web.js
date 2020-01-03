@@ -5,9 +5,8 @@ router.get('/', function(req, res, next) {
   res.render('group', { title: 'Express' });
 });
 
-router.get('/detail/:gruop', (req, res, next) => {
-    console.log("요요")
-    res.render('detail', { title: 'Express' });
+router.get('/detail/:group', (req, res, next) => {
+    res.render('detail', { title: req.params.group });
 })
 
 module.exports = router;
