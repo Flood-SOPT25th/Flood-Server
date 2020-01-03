@@ -55,7 +55,7 @@ router.post('/',authUtils.LoggedIn, async (req,res)=>{
     groupModel.phone = phone;
     groupModel.department = department
     groupModel.groupCode = groupCode;
-    groupModel.category.push("flood") // 첫 번째 허수 추가
+    groupModel.category.push("Flood") // 첫 번째 허수 추가
     category.forEach((n) => {
         groupModel.category.push(n)
     })
