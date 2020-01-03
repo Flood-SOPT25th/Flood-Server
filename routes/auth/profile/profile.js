@@ -12,7 +12,7 @@ router.put('/', authUtils.LoggedIn, upload.single('image'), async (req,res)=>{
     const profileImage =req.file;
 
     //2. 파라미터처리
-    if(!profileName || !rank || !profileImage){
+    if(!profileName || !rank ){
         res.status(400).json({
             message: "필수 정보를 입력하세요."
         });
