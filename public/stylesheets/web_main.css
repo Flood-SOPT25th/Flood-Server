@@ -66,10 +66,17 @@ body {
 .thumb {
     width: 280px;
     padding: 10px;
+    overflow: hidden;
 }
 
 .thumb-img {
-    width: 100%;
+    min-height: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 14px;
+    object-fit: cover;
+    object-position: center;
 }
 
 .thumb-logo {
@@ -109,6 +116,8 @@ body {
 }
 
 .wrap {
+    z-index: 101;
+
     width:300px;
     height: 390px;
     transition: all ease 0.5s;
@@ -132,7 +141,12 @@ body {
     height: 100%;
 }
 
+.wave:hover {
+    cursor:url('/images/sususu.png'),url('/images/surfer.png'),auto;
+}
+
 .wave {
+    z-index: 100;
 background: url('/images/wave3.svg') repeat-x;
 position: absolute;
 bottom: 0px;
@@ -147,7 +161,7 @@ height: 198px;
     bottom: 0px;
     width: 7680px;
     height: 198px;
-        -webkit-animation: wave 5s cubic-bezier(.31,.49,.55,.53) infinite;
+        -webkit-animation: wave 4s cubic-bezier(.31,.49,.55,.53) infinite;
     }
 
 .th {
@@ -156,7 +170,15 @@ height: 198px;
     bottom: 0px;
     width: 7680px;
     height: 198px;
-        -webkit-animation: wave 2s cubic-bezier(.31,.49,.55,.53) infinite;
+        -webkit-animation: wave 2s cubic-bezier(.61,.29,.30,.18) infinite;
+}    
+.fo {
+    background: url('/images/wave3.svg') repeat-x;
+    position: absolute;
+    bottom: 0px;
+    width: 7680px;
+    height: 198px;
+        -webkit-animation: wave 3s cubic-bezier(.31,.49,.55,.53) infinite;
 }    
 
 @media screen and (max-width: 600px) {
