@@ -61,8 +61,10 @@ router.get('/', authUtils.LoggedIn, async function (req, res, next) {
 
 //프로필 정보 업데이트
 router.post('/', authUtils.LoggedIn, upload.single('image'), async function (req, res, next) {
-
+    const profileImage = "";
+    var flag;
     const userEmail = req.userEmail
+    
 
     const {
         name,
@@ -70,7 +72,12 @@ router.post('/', authUtils.LoggedIn, upload.single('image'), async function (req
         phone
     } = req.body
 
-    const profileImage = req.file
+    if(req.file){
+        profileImage = req.file;
+    }else{
+        flag = 1;
+    }
+    
 
     if (!name || !rank || !phone) {
         const missParameters = Object.entries({
@@ -93,13 +100,20 @@ router.post('/', authUtils.LoggedIn, upload.single('image'), async function (req
         var user = await users.findOne({
             email: userEmail
         })
+        
         if (!user) return res.status(403).json({
             message: "존재하지 않는 사용자입니다. "
         })
+
+        if(flag == 1){
+            user.profileImage = user.profileImage;
+        }else{
+            user.profileImage = profileImage.location
+        }
         user.name = name
         user.rank = rank
         user.phone = phone
-        user.profileImage = profileImage.location
+
 
         var output = await user.save();
         console.log("사용자 정보 업데이트 완료");
