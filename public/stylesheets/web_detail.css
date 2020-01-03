@@ -73,6 +73,7 @@ body,html {
 }
 
 .hash-item {
+    user-select: none;
     font-family: NotoSansCJKkr;
     font-size: 15px;
     border-radius: 20px;
@@ -156,9 +157,12 @@ body,html {
     border-radius: 20px;
     border: solid 1px #0057ff;
     margin-right: 7px;
+    user-select: none;
+
 }
 
 .top {
+   user-select: none;
    color: orange; 
    border: solid 1px orange;
 

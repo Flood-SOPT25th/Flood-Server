@@ -76,7 +76,19 @@
         </div>
         <div class="post_item">
             <div class="post_hash_list">
-                <div class="post_item_hash">IT</div>
+                <div class="post_item_hash">Trend</div>
+                <div class="post_item_hash top">TOP3</div>
+            </div>
+            <div class="post_wrap" OnClick="location.href ='https:/www.naver.com'" style="cursor:pointer;">
+                <div class="post_title">IoT 기반 떠오르는 기업.. “새로운 도전” </div>
+                <div class="post_description">현진 컴퍼니가 이번 발표한 IoT 기반 사업이 성공적으로 컨퍼런스를 마치면서 사람들의 관심이 집중되고 있다…</div>
+                <img class="post_image" src="/images/kakao.jpg">
+            </div>
+            <span class="flips">Flips 35</span>  <span class="flips">Views 212</span>
+        </div>
+        <div class="post_item">
+            <div class="post_hash_list">
+                <div class="post_item_hash">IoT</div>
                 <div class="post_item_hash top">TOP3</div>
             </div>
             <div class="post_wrap" OnClick="location.href ='https:/www.naver.com'" style="cursor:pointer;">
@@ -89,19 +101,6 @@
         <div class="post_item">
             <div class="post_hash_list">
                 <div class="post_item_hash">IT</div>
-                <div class="post_item_hash top">TOP3</div>
-            </div>
-            <div class="post_wrap" OnClick="location.href ='https:/www.naver.com'" style="cursor:pointer;">
-                <div class="post_title">IoT 기반 떠오르는 기업.. “새로운 도전” </div>
-                <div class="post_description">현진 컴퍼니가 이번 발표한 IoT 기반 사업이 성공적으로 컨퍼런스를 마치면서 사람들의 관심이 집중되고 있다…</div>
-                <img class="post_image" src="/images/kakao.jpg">
-            </div>
-            <span class="flips">Flips 35</span>  <span class="flips">Views 212</span>
-        </div>
-        <div class="post_item">
-            <div class="post_hash_list">
-                <div class="post_item_hash">IT</div>
-                <div class="post_item_hash top">TOP3</div>
             </div>
             <div class="post_wrap" OnClick="location.href ='https:/www.naver.com'" style="cursor:pointer;">
                 <div class="post_title">IoT 기반 떠오르는 기업.. “새로운 도전” </div>
@@ -180,7 +179,7 @@
                 labels: ['M', 'T', 'W', 'T', 'F', 'S','S'],
                 datasets: [{
                     label: 'WEEK',
-                    data: makeRandomArr(7,2,35),
+                    data: makeRandomArr(7,6,35),
                     backgroundColor: [
                         '#0057ff',
                         '#0057ff',
@@ -236,7 +235,7 @@
         var myChart1 = new Chart(ctx1, {
             type: 'line',
             data: {
-                labels: ['IT', 'UI/UX', 'Marketing', 'Startup', 'Finance', 'Politics'],
+                labels: ['IT', 'UI/UX', 'Marketing', 'Startup', 'Finance', 'Trend'],
                 datasets: [{
                     label: 'Nov',
                     data: makeRandomArr(6,23,82),
@@ -252,6 +251,7 @@
                     backgroundColor:'rgba(255, 159, 64, 0.11)',
                     borderColor: 'rgba(255, 159, 64, 1)',
                     borderWidth: 1,
+
                 },
                 {
                     label: 'Dec',
@@ -285,12 +285,18 @@
                     borderWidth: 1,
                     pointBorderWidth: 0,
                     fill:true,
-                    backgroundColor:'rgba(255, 99, 132,0.11)'
+                    backgroundColor:'rgba(255, 99, 132,0.11)',
                 }]
             },
             options: {
+                elements: {
+                    center: {
+                      text: 25
+                    }
+                  },
+                
                 animation: {
-                    duration:7000
+                    duration:5000
                 },
                 legend: {
                     display: true,
@@ -302,6 +308,7 @@
                     text: 'category'
                 },
                 scales: {
+                    
                     pointLabels :{
                         fontStyle: "bolder",
                      },
@@ -330,7 +337,7 @@
         var myChart2 = new Chart(ctx2, {
             type: 'doughnut',
             data: {
-                labels: ['IT', 'UI/UX', 'Marketing', 'Startup', 'Finance', 'Politics'],
+                labels: ['IT', 'UI/UX', 'Marketing', 'Startup', 'Finance', 'Trend'],
                 datasets: [{
                     label: '요일',
                     data: makeRandomArr(6,23,80),
@@ -353,13 +360,13 @@
 
                     ],
                     borderWidth: 1,
-                }]
+                }],
             },
             options: {
                 animation: {
-                    duration:6000
+                    duration:5000
                 },
-
+                responsive: true,
                 legend: {
                     display: true,
                     position:'bottom',
@@ -377,6 +384,7 @@
                 }
             }
         });
+
 
         </script>
   </body>
