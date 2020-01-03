@@ -116,7 +116,7 @@ describe("마이페이지 테스트 ->", function () {
                 .put("/mypage/setting/image")
                 .set('Authorization', token)
                 .field('Content-Type', 'multipart/form-data')
-                .attach('image', 'public/images/thumb.jpg')
+                .attach('image', 'public/images/ba.jpg')
                 .expect(200)
                 .end(function (err, res) {
                     if (err) return done(err);
