@@ -60,16 +60,17 @@ router.get('/', authUtils.LoggedIn, async function (req, res, next) {
 
 
 //프로필 정보 업데이트
-router.put('/', authUtils.LoggedIn, async function (req, res, next) {
+router.put('/', authUtils.LoggedIn, upload.single('image'), async function (req, res, next) {
 
     const userEmail = req.userEmail
 
     const {
         name,
         rank,
-        phone,
-        profileImage
+        phone
     } = req.body
+
+    const profileImage = req.file
 
     if (!name || !rank || !phone) {
         const missParameters = Object.entries({
@@ -80,8 +81,8 @@ router.put('/', authUtils.LoggedIn, async function (req, res, next) {
             .filter(it => it[1] == undefined).map(it => it[0]).join(', ');
 
         const errData = {
-            message: `필요한 정보를 모두 입력하세요.`
-            // data: `${missParameters}`
+            message: "필요한 정보를 모두 입력하세요.",
+            data: `${missParameters}`,
         }
         res.status(400).json(errData);
         console.log(errData);
@@ -98,7 +99,7 @@ router.put('/', authUtils.LoggedIn, async function (req, res, next) {
         user.name = name
         user.rank = rank
         user.phone = phone
-        user.profileImage = profileImage
+        user.profileImage = profileImage.location
 
         var output = await user.save();
         console.log("사용자 정보 업데이트 완료");
@@ -119,6 +120,7 @@ router.put('/', authUtils.LoggedIn, async function (req, res, next) {
 router.put('/password', authUtils.LoggedIn, async function (req, res, next) {
 
     const userEmail = req.userEmail
+    
 
     const {
         originalPW,
