@@ -3,177 +3,80 @@
   <head>
     <title>회사별 상세 페이지</title>
     <link rel='stylesheet' href='/stylesheets/web_detail.css' />
-    <link rel='stylesheet' href='    https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.css' />
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.css' />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
   </head>
   <body style="margin: 0;">
-    <div class="group-image">
-        <div class="back-image">
-
-        </div>
+    <div id="feed">
+        <span id="shadow">Feed</span>
     </div>
-    <div class="group-content">
-        <h1>네이버</h1>
-        <h3>마케팅 부서</h3>
-        <h3 style="color:grey">네이버 홍보실은 네이버 서비스 및 기업 관련 홍보 전략을 세우고 <br> 내외부적인 커뮤니케이션을 수행하는 일을 담당하고 있습니다.<br>홍보실에서는 기업과 공중 사이의 원활한 커뮤니케이션을 돕는다는 목표 아래, 각 서비스 부서와 함께 대언론 홍보 계획을 수립합니다.</h3>
-        <hr>
-        <div class="chart-bar" style="display: flex;">
-            <div  style="width:50%">
-                <h2>주간 요일별 공유 수</h2>
-            </div>
-            <div style="width:50%;padding-right: 20px;">
-                <canvas id="myChart" style="display: block; height: 200px; width: 632px;" width="200" height="100"></canvas>
-            </div>
+    <div id="group_info">
+        <div id="group_title">
+            <img class="group_logo" src='/images/log.jpg'>
+            <div class="group_name">배달의 민족</div>
         </div>
-        <div class="chart-bar" style="display: flex;">
-            <div style="width:50%">
-                <h2>카테고리별 공유 수</h2>
+        <div class="hash">
+            <div class="hash-item">
+                 IT
             </div>
-            <div style="width:50%;padding-right: 20px;">
-                <canvas id="myChart1" style="display: block; height: 200px; width: 632px;" width="200" height="100"></canvas>
-            </div>
-        </div>
-        <div class="chart-bar" style="display: flex;">
-            <div style="width:50%">
-                <h2>관심 분야</h2>
-            </div>
-            <div style="width:50%;padding-right: 20px;">
-                <canvas id="myChart2" style="display: block; height: 200px; width: 632px;" width="200" height="100"></canvas>
+            <div class="hash-item">
+                디자인
+           </div>
+           <div class="hash-item">
+                마케팅
             </div>
         </div>
     </div>
-    <br>
-    <br>
-    <br>
-
-    <div class="group-post">
-        <div class="nav-bar">
-            <ul>
-                <li>ALL</li>
-                <li>IT</li>
-                <li>UI/UX</li>
-                <li>Marketing</li>
-                <li>Startup</li>
-                <li>Finance</li>
-                <li>Politics</li>
-            </ul>
+    <div id="group_graph_list">
+        <div class="group_graph animated fadeInUp slow" id="first">
+            <div class="graph_title">Week</div>
+            <div style="width:100%;height:100%;padding-right: 20px;">
+                <canvas id="myChart" style="display: block;" width="200" height="180"></canvas>
+            </div>
         </div>
-        <div class="post-wrap" OnClick="location.href ='http://techneedle.com/archives/37982'">
-            <div class="thumb" style="width: 20%; height: 100%;">
-                <img src="https://i0.wp.com/techneedle.com/wp-content/uploads/2019/11/다운로드-1.jpg?fit=1200%2C768" style="width: 100%; vertical-align:middle;">
-            </div> 
-            <div style="display: block;padding:0 20px 0 20px;">
-                
-                <h2>페이스북은 당신의 금융, 재무 상태를 페이스북 친구와 비교할 생각이다</h2>
-                
-                <div style="max-width: 80%;">
-                    <h4>페이스북이 2013년 출원하고 최근 승인받은 금융 특허는 개인 금융 관리 툴에 가깝다. 재밌는 사실은 이 특허가 개인 페이스북 사용자의 금융, 재무 내역을 다른 페이스북 사용자, 혹은 그룹과 비교한다는 사실이다. 페이스북은 암호화폐 프로젝트인 리브라(Libra)를 만들기 전부터 암호화폐 관련해 여러 특허를 확보했고, 금융 관련 카테고리에서는 124개가…</h4>
-                </div>
-            </div>  
+        <div class="group_graph animated fadeInUp slow delay-1s" id="two">
+            <div class="graph_title">Category</div>
+            <div style="width:100%;height:100%;padding-right: 20px;">
+                <canvas id="myChart1" style="display: block;" width="200" height="180"></canvas>
+            </div>
         </div>
-        <div class="post-wrap" OnClick="location.href ='http://techneedle.com/archives/37982'">
-            <div class="thumb" style="width: 20%; height: 100%;">
-                <img src="https://i0.wp.com/techneedle.com/wp-content/uploads/2019/11/다운로드-1.jpg?fit=1200%2C768" style="width: 100%; vertical-align:middle;">
-            </div> 
-            <div style="display: block;padding:0 20px 0 20px;">
-                
-                <h2>페이스북은 당신의 금융, 재무 상태를 페이스북 친구와 비교할 생각이다</h2>
-                
-                <div style="max-width: 80%;">
-                    <h4>페이스북이 2013년 출원하고 최근 승인받은 금융 특허는 개인 금융 관리 툴에 가깝다. 재밌는 사실은 이 특허가 개인 페이스북 사용자의 금융, 재무 내역을 다른 페이스북 사용자, 혹은 그룹과 비교한다는 사실이다. 페이스북은 암호화폐 프로젝트인 리브라(Libra)를 만들기 전부터 암호화폐 관련해 여러 특허를 확보했고, 금융 관련 카테고리에서는 124개가…</h4>
-                </div>
-            </div>  
+        <div class="group_graph animated fadeInUp slow delay-2s" id="three">
+            <div class="graph_title">Most Flips</div>
+            <div style="width:100%;height:100%;padding-right: 20px;">
+                <canvas id="myChart2" style="display: block;" width="200" height="180"></canvas>
+            </div>
         </div>
-        <div class="post-wrap" OnClick="location.href ='http://techneedle.com/archives/37982'">
-            <div class="thumb" style="width: 20%; height: 100%;">
-                <img src="https://i0.wp.com/techneedle.com/wp-content/uploads/2019/11/다운로드-1.jpg?fit=1200%2C768" style="width: 100%; vertical-align:middle;">
-            </div> 
-            <div style="display: block;padding:0 20px 0 20px;">
-                
-                <h2>페이스북은 당신의 금융, 재무 상태를 페이스북 친구와 비교할 생각이다</h2>
-                
-                <div style="max-width: 80%;">
-                    <h4>페이스북이 2013년 출원하고 최근 승인받은 금융 특허는 개인 금융 관리 툴에 가깝다. 재밌는 사실은 이 특허가 개인 페이스북 사용자의 금융, 재무 내역을 다른 페이스북 사용자, 혹은 그룹과 비교한다는 사실이다. 페이스북은 암호화폐 프로젝트인 리브라(Libra)를 만들기 전부터 암호화폐 관련해 여러 특허를 확보했고, 금융 관련 카테고리에서는 124개가…</h4>
-                </div>
-            </div>  
+    </div>
+    <div id="post_list">
+        <div class="post_item">
+            <div class="post_hash_list">
+                <div class="post_item_hash">IT</div>
+                <div class="post_item_hash top">TOP3</div>
+            </div>
+            <div class="post_wrap" OnClick="location.href ='https:/www.naver.com'" style="cursor:pointer;">
+                <div class="post_title">IoT 기반 떠오르는 기업.. “새로운 도전” </div>
+                <div class="post_description">현진 컴퍼니가 이번 발표한 IoT 기반 사업이 성공적으로 컨퍼런스를 마치면서 사람들의 관심이 집중되고 있다…</div>
+                <img class="post_image" src="/images/kakao.jpg">
+            </div>
+            <span class="flips">Flips 35</span>
         </div>
-        <div class="post-wrap" OnClick="location.href ='http://techneedle.com/archives/37982'">
-            <div class="thumb" style="width: 20%; height: 100%;">
-                <img src="https://i0.wp.com/techneedle.com/wp-content/uploads/2019/11/다운로드-1.jpg?fit=1200%2C768" style="width: 100%; vertical-align:middle;">
-            </div> 
-            <div style="display: block;padding:0 20px 0 20px;">
-                
-                <h2>페이스북은 당신의 금융, 재무 상태를 페이스북 친구와 비교할 생각이다</h2>
-                
-                <div style="max-width: 80%;">
-                    <h4>페이스북이 2013년 출원하고 최근 승인받은 금융 특허는 개인 금융 관리 툴에 가깝다. 재밌는 사실은 이 특허가 개인 페이스북 사용자의 금융, 재무 내역을 다른 페이스북 사용자, 혹은 그룹과 비교한다는 사실이다. 페이스북은 암호화폐 프로젝트인 리브라(Libra)를 만들기 전부터 암호화폐 관련해 여러 특허를 확보했고, 금융 관련 카테고리에서는 124개가…</h4>
-                </div>
-            </div>  
+        <div class="post_item">
+            adwadawd
         </div>
-        <div class="post-wrap" OnClick="location.href ='http://techneedle.com/archives/37982'">
-            <div class="thumb" style="width: 20%; height: 100%;">
-                <img src="https://i0.wp.com/techneedle.com/wp-content/uploads/2019/11/다운로드-1.jpg?fit=1200%2C768" style="width: 100%; vertical-align:middle;">
-            </div> 
-            <div style="display: block;padding:0 20px 0 20px;">
-                
-                <h2>페이스북은 당신의 금융, 재무 상태를 페이스북 친구와 비교할 생각이다</h2>
-                
-                <div style="max-width: 80%;">
-                    <h4>페이스북이 2013년 출원하고 최근 승인받은 금융 특허는 개인 금융 관리 툴에 가깝다. 재밌는 사실은 이 특허가 개인 페이스북 사용자의 금융, 재무 내역을 다른 페이스북 사용자, 혹은 그룹과 비교한다는 사실이다. 페이스북은 암호화폐 프로젝트인 리브라(Libra)를 만들기 전부터 암호화폐 관련해 여러 특허를 확보했고, 금융 관련 카테고리에서는 124개가…</h4>
-                </div>
-            </div>  
-        </div>
-        <div class="post-wrap" OnClick="location.href ='http://techneedle.com/archives/37982'">
-            <div class="thumb" style="width: 20%; height: 100%;">
-                <img src="https://i0.wp.com/techneedle.com/wp-content/uploads/2019/11/다운로드-1.jpg?fit=1200%2C768" style="width: 100%; vertical-align:middle;">
-            </div> 
-            <div style="display: block;padding:0 20px 0 20px;">
-                
-                <h2>페이스북은 당신의 금융, 재무 상태를 페이스북 친구와 비교할 생각이다</h2>
-                
-                <div style="max-width: 80%;">
-                    <h4>페이스북이 2013년 출원하고 최근 승인받은 금융 특허는 개인 금융 관리 툴에 가깝다. 재밌는 사실은 이 특허가 개인 페이스북 사용자의 금융, 재무 내역을 다른 페이스북 사용자, 혹은 그룹과 비교한다는 사실이다. 페이스북은 암호화폐 프로젝트인 리브라(Libra)를 만들기 전부터 암호화폐 관련해 여러 특허를 확보했고, 금융 관련 카테고리에서는 124개가…</h4>
-                </div>
-            </div>  
-        </div>
-        <div class="post-wrap" OnClick="location.href ='http://techneedle.com/archives/37982'">
-            <div class="thumb" style="width: 20%; height: 100%;">
-                <img src="https://i0.wp.com/techneedle.com/wp-content/uploads/2019/11/다운로드-1.jpg?fit=1200%2C768" style="width: 100%; vertical-align:middle;">
-            </div> 
-            <div style="display: block;padding:0 20px 0 20px;">
-                
-                <h2>페이스북은 당신의 금융, 재무 상태를 페이스북 친구와 비교할 생각이다</h2>
-                
-                <div style="max-width: 80%;">
-                    <h4>페이스북이 2013년 출원하고 최근 승인받은 금융 특허는 개인 금융 관리 툴에 가깝다. 재밌는 사실은 이 특허가 개인 페이스북 사용자의 금융, 재무 내역을 다른 페이스북 사용자, 혹은 그룹과 비교한다는 사실이다. 페이스북은 암호화폐 프로젝트인 리브라(Libra)를 만들기 전부터 암호화폐 관련해 여러 특허를 확보했고, 금융 관련 카테고리에서는 124개가…</h4>
-                </div>
-            </div>  
-        </div>
-        <div class="post-wrap" OnClick="location.href ='http://techneedle.com/archives/37982'">
-            <div class="thumb" style="width: 20%; height: 100%;">
-                <img src="https://i0.wp.com/techneedle.com/wp-content/uploads/2019/11/다운로드-1.jpg?fit=1200%2C768" style="width: 100%; vertical-align:middle;">
-            </div> 
-            <div style="display: block;padding:0 20px 0 20px;">
-                
-                <h2>페이스북은 당신의 금융, 재무 상태를 페이스북 친구와 비교할 생각이다</h2>
-                
-                <div style="max-width: 80%;">
-                    <h4>페이스북이 2013년 출원하고 최근 승인받은 금융 특허는 개인 금융 관리 툴에 가깝다. 재밌는 사실은 이 특허가 개인 페이스북 사용자의 금융, 재무 내역을 다른 페이스북 사용자, 혹은 그룹과 비교한다는 사실이다. 페이스북은 암호화폐 프로젝트인 리브라(Libra)를 만들기 전부터 암호화폐 관련해 여러 특허를 확보했고, 금융 관련 카테고리에서는 124개가…</h4>
-                </div>
-            </div>  
-        </div>
-        <div class="post-wrap" OnClick="location.href ='http://techneedle.com/archives/37982'">
-            <div class="thumb" style="width: 20%; height: 100%;">
-                <img src="https://i0.wp.com/techneedle.com/wp-content/uploads/2019/11/다운로드-1.jpg?fit=1200%2C768" style="width: 100%; vertical-align:middle;">
-            </div> 
-            <div style="display: block;padding:0 20px 0 20px;">
-                
-                <h2>페이스북은 당신의 금융, 재무 상태를 페이스북 친구와 비교할 생각이다</h2>
-                
-                <div style="max-width: 80%;">
-                    <h4>페이스북이 2013년 출원하고 최근 승인받은 금융 특허는 개인 금융 관리 툴에 가깝다. 재밌는 사실은 이 특허가 개인 페이스북 사용자의 금융, 재무 내역을 다른 페이스북 사용자, 혹은 그룹과 비교한다는 사실이다. 페이스북은 암호화폐 프로젝트인 리브라(Libra)를 만들기 전부터 암호화폐 관련해 여러 특허를 확보했고, 금융 관련 카테고리에서는 124개가…</h4>
-                </div>
-            </div>  
-        </div>
+    </div>
+    
+    <!-- <div class="nav-bar">
+        <ul>
+            <li>ALL</li>
+            <li>IT</li>
+            <li>UI/UX</li>
+            <li>Marketing</li>
+            <li>Startup</li>
+            <li>Finance</li>
+            <li>Politics</li>
+        </ul>
+    </div> -->
+    
     </div>
     <script
         src="https://code.jquery.com/jquery-3.4.1.min.js"
@@ -204,38 +107,56 @@
         var myChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat','Sun'],
+                labels: ['M', 'T', 'W', 'T', 'F', 'S','S'],
                 datasets: [{
-                    label: '요일',
+                    label: 'WEEK',
                     data: [12, 19, 3, 5, 2, 3, 13],
                     backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
+                        '#0057ff',
+                        '#0057ff',
+                        '#0057ff',
+                        '#0057ff',
+                        '#0057ff',
+                        '#0057ff',
+                        '#0057ff'
 
                     ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)',
-                        'rgba(255, 159, 64, 1)'
-
-                    ],
+                    barThickness: 4,
                     borderWidth: 1,
                 }]
             },
             options: {
+                animation: {
+                    duration:7000
+                },
+                legend: {
+                    display: true,
+                    position:'bottom'
+                },
+                title: {
+                    display: true,
+                    text: '1st week 2020'
+                },
                 scales: {
+                    
+                    pointLabels :{
+                        fontStyle: "bolder",
+                     },
                     yAxes: [{
                         ticks: {
-                            beginAtZero: true
+                            beginAtZero: false,
+                            fontStyle:'blod',
+                            fontColor:'black',
+                            stepSize:5
+                        }
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            fontStyle:'blod',
+                            fontColor:'black'
+                        },
+                        gridLines: {
+                            display:false
                         }
                     }]
                 }
@@ -248,7 +169,7 @@
             data: {
                 labels: ['IT', 'UI/UX', 'Marketing', 'Startup', 'Finance', 'Politics'],
                 datasets: [{
-                    label: '11월',
+                    label: 'Nov',
                     data: [12, 19, 3, 5, 2, 3],
                     pointBackgroundColor: [
                         'rgba(255, 99, 132, 1)',
@@ -258,12 +179,13 @@
                         'rgba(153, 102, 255, 1)',
                         'rgba(255, 159, 64, 1)'
                     ],
+                    fill:true,
+                    backgroundColor:'rgba(255, 159, 64, 0.11)',
                     borderColor: 'rgba(255, 159, 64, 1)',
                     borderWidth: 1,
-                    fill:false
                 },
                 {
-                    label: '12월',
+                    label: 'Dec',
                     data: [10, 9, 4, 3, 1, 3],
                     pointBackgroundColor: [
                         'rgba(255, 99, 132, 1)',
@@ -276,10 +198,11 @@
                     borderColor: 'rgba(75, 192, 192, 1)',
                     borderWidth: 1,
                     pointBorderWidth: 0,
-                    fill: false
+                    fill:true,
+                    backgroundColor:'rgba(75, 192, 192,0.11)',
                 },
                 {
-                    label: '1월',
+                    label: 'Jan',
                     data: [3, 12, 4, 19, 1, 22],
                     pointBackgroundColor: [
                         'rgba(255, 99, 132, 1)',
@@ -292,14 +215,42 @@
                     borderColor: 'rgba(255, 99, 132, 1)',
                     borderWidth: 1,
                     pointBorderWidth: 0,
-                    fill: false
+                    fill:true,
+                    backgroundColor:'rgba(255, 99, 132,0.11)'
                 }]
             },
             options: {
+                animation: {
+                    duration:7000
+                },
+                legend: {
+                    display: true,
+                    position:'bottom'
+                },
+
+                title: {
+                    display: true,
+                    text: 'category'
+                },
                 scales: {
+                    pointLabels :{
+                        fontStyle: "bolder",
+                     },
                     yAxes: [{
                         ticks: {
-                            beginAtZero: true
+                            beginAtZero: false,
+                            fontStyle:'blod',
+                            fontColor:'black',
+                            stepSize:5
+                        }
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            fontStyle:'blod',
+                            fontColor:'black'
+                        },
+                        gridLines: {
+                            display:true
                         }
                     }]
                 }
@@ -319,7 +270,7 @@
                         'rgba(54, 162, 235, 1)',
                         'rgba(255, 206, 86, 1)',
                         'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
+                        'rgba(153, 102, 255,1)',
                         'rgba(255, 159, 64, 1)',
 
                     ],
@@ -336,6 +287,25 @@
                 }]
             },
             options: {
+                animation: {
+                    duration:6000
+                },
+
+                legend: {
+                    display: true,
+                    position:'bottom',
+                    fontStyle:'bold'
+                },
+                title: {
+                    display: true,
+                    text: 'flips'
+                },
+                scales: {
+                    pointLabels :{
+                        fontStyle: "bolder",
+                     }
+                   
+                }
             }
         });
 

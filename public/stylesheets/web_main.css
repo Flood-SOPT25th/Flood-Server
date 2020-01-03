@@ -1,7 +1,17 @@
+@font-face{ 
+    font-family:giloy; 
+    src:url('./Gilroy-ExtraBold.ttf');  
+}
+
+
 .group-wrap {
     border: 1px solid black;
     cursor: pointer;
     display: flex;
+}
+
+.wrap:hover {
+    transform: scale(1.1);
 }
 
 .group-wrap .thumb {
@@ -9,4 +19,193 @@
     border: 1px solid black;
     width: 200px;
     height: 200px;
+}
+
+html,body {
+    width: 100%;
+    height: 100%;
+    margin: 0 !important;
+}
+
+body {
+    background-size: cover;
+    /* background-image: url('/images/img_BG.png') ; */
+    background-repeat : no-repeat;
+}
+
+#floodlogo {
+    position: absolute;
+    top: 10%;
+    left: 116px;
+    width: 150px;
+
+
+}
+
+#slogan {
+    position: absolute;
+    top: 30%;
+    left: 135px;
+    line-height: 86px;
+    font-size: 50px;
+    font-weight: bolder;
+    font-family: giloy;
+}
+
+#content {
+    position: absolute;
+    display: flex;
+    width: 80%;
+    top:45%;
+    left: 135px;
+    text-align: center;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.thumb {
+    width: 280px;
+    padding: 10px;
+}
+
+.thumb-img {
+    width: 100%;
+}
+
+.thumb-logo {
+    width: 30px;
+    border-radius: 50%;
+    border: 1px solid #ededed;
+}
+
+.content-title {
+    display: flex;
+    padding-left: 10px;
+    justify-content: start;
+    align-items: center;
+}
+
+.hash {
+    margin-top:10px;
+    display: flex;
+    padding-left: 52px;
+    justify-content: start;
+    align-items: center;
+}
+
+.hash-item {
+    font-size: 11px;
+    border-radius: 10px;
+    color: #d1d1d1;
+    border: 1px solid #d1d1d1;
+    padding: 2px 9px 2px 9px;
+    margin-right: 6px;
+}
+.title {
+    font-size: 22px;
+    line-height: 12px;
+    font-weight: bolder;
+    margin-left: 10px;
+}
+
+.wrap {
+    width:300px;
+    height: 390px;
+    transition: all ease 0.5s;
+    border-radius: 13px;
+    background-color: white;
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+}
+
+
+@keyframes moving {
+    from {transform: translateY(0px);}
+    to {transform: translateY(200px);}
+}
+
+.ocean {
+    overflow: hidden;
+      width: 100%;
+      position: relative;
+      bottom: 0;
+      left: 0;
+    height: 100%;
+}
+
+.wave {
+background: url('/images/wave3.svg') repeat-x;
+position: absolute;
+bottom: 0px;
+width: 7680px;
+height: 198px;
+    -webkit-animation: wave 7s cubic-bezier(.36,.45,.63,.53) infinite;
+}
+
+.tw {
+    background: url('/images/wave3.svg') repeat-x;
+    position: absolute;
+    bottom: 0px;
+    width: 7680px;
+    height: 198px;
+        -webkit-animation: wave 5s cubic-bezier(.31,.49,.55,.53) infinite;
+    }
+
+.th {
+    background: url('/images/wave3.svg') repeat-x;
+    position: absolute;
+    bottom: 0px;
+    width: 7680px;
+    height: 198px;
+        -webkit-animation: wave 2s cubic-bezier(.31,.49,.55,.53) infinite;
+}    
+
+@media screen and (max-width: 600px) {
+    .wave {
+        top:-75px;
+        height: 75px
+    }
+}
+
+@-webkit-keyframes wave {
+    0% {
+        margin-left: 0
+    }
+
+    100% {
+        margin-left: -1920px
+    }
+}
+
+@keyframes wave {
+    0% {
+        margin-left: 0
+    }
+
+    100% {
+        margin-left: -1920px
+    }
+}
+
+@-webkit-keyframes swell {
+    0%,100% {
+        -webkit-transform: translate3d(0,-25px,0);
+        transform: translate3d(0,-25px,0)
+    }
+
+    50% {
+        -webkit-transform: translate3d(0,5px,0);
+        transform: translate3d(0,5px,0)
+    }
+}
+
+@keyframes swell {
+    0%,100% {
+        -webkit-transform: translate3d(0,-25px,0);
+        transform: translate3d(0,-25px,0)
+    }
+
+    50% {
+        -webkit-transform: translate3d(0,5px,0);
+        transform: translate3d(0,5px,0)
+    }
 }

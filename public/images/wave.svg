@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1920px" height="198px" viewBox="0 0 1920 198" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 44 (41411) - http://www.bohemiancoding.com/sketch -->
+    <title>wave copy</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="-8.56622664%" x2="50%" y2="97.7908155%" id="linearGradient-1">
+            <stop stop-color="#blue" stop-opacity="0.0697180707" offset="0%"></stop>
+            <stop stop-color="#blue" stop-opacity="0.18115942" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="wave-copy" fill="url(#linearGradient-1)">
+            <path d="M0.006,121.000386 C373.2,121.000386 491.8776,-0.249613933 973.2,0.000386067216 C1453.2,0.000386067216 1573.2,121.000386 1920,121.000386 L1920,198.000386 L0,198.000386 C0,198.000386 0.006,150.000386 0.006,121.000386 Z" id="Shape" transform="translate(960.000000, 99.000193) scale(-1, 1) translate(-960.000000, -99.000193) "></path>
+        </g>
+    </g>
+</svg>
